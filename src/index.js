@@ -10,7 +10,6 @@ Sentry.init({
   integrations: [new Integrations.BrowserTracing()],
   tracesSampleRate: 1.0
 });
-
 ReactDOM.render(
   <React.StrictMode>
     <App />
