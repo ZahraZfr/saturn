@@ -1,9 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as Sentry from '@sentry/react';
-import { Integrations } from '@sentry/tracing';
+import React from 'react'; 
+import ReactDOM from 'react-dom'; 
+import './index.css'; 
+import App from './App'; 
+import * as Sentry from '@sentry/react'; 
+import { Integrations } from '@sentry/tracing'; 
+import { BrowserRouter } from 'react-router-dom';
 
 Sentry.init({
   dsn: process.env.REACT_APP_DSN_URL,
@@ -12,7 +13,9 @@ Sentry.init({
 });
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
