@@ -15,7 +15,7 @@ const Login = () => {
 		let formData = new FormData(event.currentTarget);
 		let username = formData.get("username");
 
-		auth.signin(username, () => {
+		auth.SignIn(username, () => {
 			navigate(from, { replace: true });
 		});
 	}
@@ -25,8 +25,14 @@ const Login = () => {
 
 			<form onSubmit={handleSubmit}>
 				<label>
-					Username: <input name="username" type="text" />
+					Email: <input name="Email" type="Email" />
 				</label>{" "}
+
+				<label>
+					Password: <input name="Password" type="Password" />
+				</label>{" "}
+
+
 				<button type="submit">Login</button>
 			</form>
 		</div>

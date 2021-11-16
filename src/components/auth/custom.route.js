@@ -3,28 +3,27 @@ import { auth } from "../../services/firebase";
 import { useAuth } from "../providers/auth.provider"
 import config from "../../services/config";
 import { confirmPasswordReset } from "firebase/auth";
-import react from "react";
+import React from "react";
 
-const CustomRoute = ({ children , isProtected })=>
-{
-
-    let auth = useLocation();
+const CustomRoute = ({ children, isProtected }) => {
+    let auth = useAuth();
+    let { User } = useAuth();
     let location = useLocation();
 
 
-    if (isProtected){
-        if (!auth.user) {
+    if (isProtected) {
+        if (!User) {
             return <Navigate to={config.routes.login.pathname} state={{ from: location }} />;
         }
         return children
     }
     // public
-    if (auth.user) {
+    if (User) {
         return <Navigate to={config.routes.login.pathname} state={{ from: location }} />;
     }
     return children
 
 
-    
+
 }
 export default CustomRoute;
