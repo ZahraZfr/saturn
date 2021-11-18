@@ -1,29 +1,49 @@
-import React from "react";
-import { useContext, useState } from "react";
-import { createContext } from "react";
-const AuthCountext = createContext(null)
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { auth } from "../../services/firebase"
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
+const AuthContext = createContext(null);
 
-const AuthProvider = ({children}) => {
-    const [user, setUser] = useState(null)
+const AuthProvider = ({ children }) =>
+{
+	const [user, setUser] = useState(null);
 
-    const SignIn = (username , callback) => {
-        setUser(username)
-        callback()
-    }
+	useEffect(() =>
+	{
+		auth.onAuthStateChanged((user) =>
+		{
+			setUser(user);
+			console.log({user})
+		});
+	});
 
-    const SignOut = () => {
-        setUser(null)
-    }
-    return <AuthCountext.Provider value={{
-        User: user,
-        SignIn,
-        SignOut
-    }}>
-        {children}
-    </AuthCountext.Provider>
-}
+	const SignIn = async (email, password, callback) =>
+	{
+		await signInWithEmailAndPassword(auth, email, password);
+		callback();
+	};
 
-export default AuthProvider
+	const SignUp = async (email, password, callback) =>
+	{
+		await createUserWithEmailAndPassword(auth, email, password);
+		callback();
+	};
 
-export const useAuth = () => useContext(AuthCountext)
+	const SignOut = () =>
+	{
+		setUser(null);
+	};
+
+	return <AuthContext.Provider value={{
+		User: user,
+		SignIn,
+		SignUp,
+		SignOut
+	}}>
+		{children}
+	</AuthContext.Provider>;
+};
+
+export default AuthProvider;
+
+export const useAuth = () => useContext(AuthContext);

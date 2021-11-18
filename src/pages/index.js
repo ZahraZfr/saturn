@@ -1,7 +1,5 @@
-const Index = ({routeName}) => {
-	return (
-		<p>INDEX</p>
-	)
+const Index = () => {
+	return <p>Index</p>
 }
 
 export default Index;
