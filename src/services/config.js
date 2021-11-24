@@ -28,6 +28,11 @@ export default {
 			isCaseSensitive: true,
 			isProtected: true
 		},
+		admin: {
+			pathname:'/admin',
+			isCaseSensitive: true,
+			isProtected: true
+		}
 	},
 	entities: {
 		project: {

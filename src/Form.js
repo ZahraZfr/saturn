@@ -30,6 +30,7 @@ const ContactForm = () => {
                 alert("unsuccessful" + error)
             })
     }
+    
     const updatedPhase = {
         duration: 'UP',
         nameOfProject: 'UP',
