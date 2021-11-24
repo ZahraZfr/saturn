@@ -31,12 +31,15 @@ const ContactForm = () => {
             })
     }
     
-    const updatedPhase = {
-        duration: 'UP',
-        nameOfProject: 'UP',
-    }
+
 
     const updateData = () =>{
+
+        const updatedPhase = {
+        duration: 'UP',
+        nameOfProject: 'UP',
+        }
+        
         update(ref(db, 'phase/id' + '3'), updatedPhase)
         .then(() => {
             alert("data successful")

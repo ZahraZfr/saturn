@@ -28,17 +28,29 @@ export default {
 			isCaseSensitive: true,
 			isProtected: true
 		},
-		admin: {
-			pathname:'/admin',
-			isCaseSensitive: true,
-			isProtected: true
-		}
 	},
 	entities: {
+		learning: {
+			fields: {
+				
+				title: {
+					type: "string"
+				},
+				category: {
+					type: "string"
+				},
+				resource: {
+					type:"string"
+				}
+			}
+		},
 		project: {
 			fields: {
 				name: {
 					type: "string"
+				},
+				duration: {
+					type: "number"
 				}
 			}
 		},

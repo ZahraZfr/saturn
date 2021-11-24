@@ -20,8 +20,6 @@ const Login = () => {
 		let email = formData.get("email");
 		let password = formData.get("password");
 
-		
-
 		try {
 			await auth.SignIn({
 				email,
