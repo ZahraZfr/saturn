@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
-import config from './services/config';
 import { Routes, Route } from 'react-router-dom';
+import config from './services/config';
 import AuthProvider from './components/providers/auth.provider';
 import CustomRoute from './components/auth/custom.route';
 

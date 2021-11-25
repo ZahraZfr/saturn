@@ -1,20 +1,23 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { createUserWithEmailAndPassword, setPersistence, browserSessionPersistence, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../services/firebase';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
 const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(null);
+	const [pending, setPending] = useState(true)
 
 	useEffect(() => {
 		auth.onAuthStateChanged((user) => {
 			setUser(user);
+			setPending(false)
 			console.log({ user });
 		});
 	});
 
-	const SignIn = async (email, password, callback) => {
+	const SignIn = async ({ email, password }, callback) => {
+		setPersistence(auth, browserSessionPersistence)
 		await signInWithEmailAndPassword(auth, email, password);
 		callback();
 	};
@@ -27,6 +30,11 @@ const AuthProvider = ({ children }) => {
 	const SignOut = () => {
 		setUser(null);
 	};
+
+	if (pending) {
+		return <>loading ...
+		</>
+	}
 
 	return (
 		<AuthContext.Provider

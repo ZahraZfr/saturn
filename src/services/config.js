@@ -30,10 +30,27 @@ export default {
 		},
 	},
 	entities: {
+		learning: {
+			fields: {
+				
+				title: {
+					type: "string"
+				},
+				category: {
+					type: "string"
+				},
+				resource: {
+					type:"string"
+				}
+			}
+		},
 		project: {
 			fields: {
 				name: {
 					type: "string"
+				},
+				duration: {
+					type: "number"
 				}
 			}
 		},
