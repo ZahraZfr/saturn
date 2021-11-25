@@ -1,19 +1,33 @@
 import React, { createContext, useState, useEffect , useContext} from 'react';
 import { getDatabase, get, ref, set, push, child, update, remove } from 'firebase/database';
 import { db } from "../../services/firebase"
+import config from '../../services/config';
+import { useParams } from "react-router";
 const dbRef = ref(getDatabase());
 
 const CRUDContext = createContext(null);
 
 
-const ContactForm = () => {
+const CrudProvider = ({children}) => {
+
+    const { entityName } = useParams();
     // const [tableValue, setTableValue] = useState([])
 
-    const create = () => {
-     
+    const create = (event) => {
+        event.preventDefault()
+
+		const form = new FormData(event.target)
+		const values = Object.keys(config.entities[entityName].fields).map(field => {
+			return form.get(field)
+		})
+		push(ref(db, 'phase/id' + '8'), values)
+			.then(() => {
+				alert("data successful")
+			})
+			.catch((error) => {
+				alert("unsuccessful" + error)
+			})
 		// console.log({values})
-      
-       
     }
    
     const updateData = () => {
@@ -72,7 +86,7 @@ const ContactForm = () => {
 
     );
 }
-export default ContactForm;
+export default CrudProvider;
 
 
-export const useCRUD = () => useContext(ContactForm);
+export const useCRUD = () => useContext(CRUDContext);
