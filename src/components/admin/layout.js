@@ -2,9 +2,9 @@ import { useParams } from "react-router"
 import { Link } from "react-router-dom"
 import config from "../../services/config";
 
-const Admin = ({children}) => {
+const Admin = ({ children }) => {
 
-	const {entityName, actionName} = useParams()
+	const { entityName, actionName } = useParams()
 
 	return (
 		<div style={{
@@ -16,19 +16,20 @@ const Admin = ({children}) => {
 			gridTemplateAreas: `
 				'sidebar navbar'
 				'sidebar content'
-			`
-		}}>
+			`}}>
+
 			<div className="navbar" style={{
 				gridArea: 'navbar',
 				backgroundColor: '#ececec'
 			}}>
 				<ul>
-					<li style={{display: 'inline-block'}}>
+					<li style={{ display: 'inline-block' }}>
 						<Link to={`/admin/${entityName}/list`}>{entityName}</Link>
 					</li>{" / "}
-					<li style={{display: 'inline-block'}}>{actionName}</li>
+					<li style={{ display: 'inline-block' }}>{actionName}</li>
 				</ul>
 			</div>
+
 			<div className="sidebar" style={{
 				gridArea: 'sidebar',
 				backgroundColor: '#e0e0e0'
@@ -40,11 +41,13 @@ const Admin = ({children}) => {
 					}
 				</ul>
 			</div>
+
 			<div className="content" style={{
 				gridArea: 'content'
-			}}>
-				{children}
+				}}>{children}
 			</div>
+
+	
 		</div>
 	)
 };

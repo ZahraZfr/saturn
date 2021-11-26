@@ -20,7 +20,7 @@ const CrudProvider = ({children}) => {
 		const values = Object.keys(config.entities[entityName].fields).map(field => {
 			return form.get(field)
 		})
-		push(ref(db, 'phase/id' + '8'), values)
+		push(ref(db, `${entityName}`), values)
 			.then(() => {
 				alert("data successful")
 			})

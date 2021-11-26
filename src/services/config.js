@@ -28,6 +28,11 @@ export default {
 			isCaseSensitive: true,
 			isProtected: true
 		},
+		admin: {
+			pathname: '/admin',
+			isCaseSensitive: true,
+			isProtected: true
+		}
 	},
 	entities: {
 		learning: {
@@ -46,10 +51,10 @@ export default {
 		},
 		project: {
 			fields: {
-				name: {
+				"Project name": {
 					type: "string"
 				},
-				duration: {
+				"Duration time of project": {
 					type: "number"
 				}
 			}

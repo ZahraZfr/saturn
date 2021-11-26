@@ -1,6 +1,4 @@
 import config from "../../services/config";
-import { getDatabase, get, ref, set, push, child, update, remove } from 'firebase/database';
-import { db } from "../../services/firebase";
 import { useCRUD } from "../providers/crud.provider";
 
 
@@ -10,17 +8,20 @@ const EntityForm = ({ entityName }) => {
 
 		const { type, reference } = config.entities[entityName].fields[field];
 
+
 		switch (type) {
 			case "string":
-				return <label key={field} style={{ display: 'block', margin: '1em 0' }}>
+				return <label className="text-lg font-semibold" key={field} 
+				style={{ display: 'block', margin: '1em 0' }}>
 					{field}:
-					<input name={field} type="text" />
+					<input className="ml-5 rounded-lg shadow-lg pl-4 outline-none" name={field} type="text" required />
+				
 				</label>;
 
 			case "number":
-				return <label key={field} style={{ display: 'block', margin: '1em 0' }}>
+				return <label className="text-lg font-semibold" key={field} style={{ display: 'block', margin: '1em 0' }}>
 					{field}:
-					<input name={field} type="number" />
+					<input className="ml-5 rounded-lg shadow-lg pl-4 outline-none" name={field} type="number" required />
 				</label>;
 
 			case "ref":
@@ -30,7 +31,8 @@ const EntityForm = ({ entityName }) => {
 				return <p key={field}>field type for &quot;{field}&quot; not recognized</p>;
 		}
 	});
-	const  crud = useCRUD();
+
+	const crud = useCRUD();
 
 	// const handleSubmit = (event)=>{
 	// 	if event.target.values == 'create'
@@ -53,34 +55,34 @@ const EntityForm = ({ entityName }) => {
 	// };
 
 	// const updateData = () => {
-    //     const updatedPhase = {
-    //         duration: 'UP',
-    //         nameOfProject: 'UP',
-    //     }
+	//     const updatedPhase = {
+	//         duration: 'UP',
+	//         nameOfProject: 'UP',
+	//     }
 
-    //     update(ref(db, 'phase/id' + '3'), updatedPhase)
-    //         .then(() => {
-    //             alert("data successful")
-    //         })
-    //         .catch((error) => {
-    //             alert("unsuccessful" + error)
-    //         })
+	//     update(ref(db, 'phase/id' + '3'), updatedPhase)
+	//         .then(() => {
+	//             alert("data successful")
+	//         })
+	//         .catch((error) => {
+	//             alert("unsuccessful" + error)
+	//         })
 
-    // }
+	// }
 
 	// const showData = () => {
 
-    //     get(child(dbRef, 'phase/id3')).then((snapshot) => {
-    //         if (snapshot.exists()) {
-    //             setTableValue(snapshot.val())
-    //             console.log(snapshot.val());
-    //         } else {
-    //             console.log("No data available");
-    //         }
-    //     }).catch((error) => {
-    //         console.error(error);
-    //     });
-    // }
+	//     get(child(dbRef, 'phase/id3')).then((snapshot) => {
+	//         if (snapshot.exists()) {
+	//             setTableValue(snapshot.val())
+	//             console.log(snapshot.val());
+	//         } else {
+	//             console.log("No data available");
+	//         }
+	//     }).catch((error) => {
+	//         console.error(error);
+	//     });
+	// }
 
 
 	// const showData = () => {
@@ -99,10 +101,9 @@ const EntityForm = ({ entityName }) => {
 
 	return (
 		<>
-			<form onSubmit={crud.create}>
+			<form className="formCrud border border-black rounded-lg p-5" onSubmit={crud.create}>
 				{fields}
-				<button  type="submit">create</button>
-				{/* <button  type="submit">create</button> */}
+				<button type="submit">create</button>
 			</form>
 
 
