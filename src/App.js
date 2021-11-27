@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import config from './services/config';
 import AuthProvider from './components/providers/auth.provider';
 import CustomRoute from './components/auth/custom.route';
+import CrudProvider from './components/providers/crud.provider';
 
 function App() {
 	return (
@@ -19,11 +20,13 @@ function App() {
 								path={route.pathname}
 								caseSensitive={route.isCaseSensitive}
 								element={
-									<CustomRoute isProtected={route.isProtected}>
-										<Suspense fallback={<p>Loading...</p>}>
-											<Component />
-										</Suspense>
-									</CustomRoute>
+									<CrudProvider>
+										<CustomRoute isProtected={route.isProtected}>
+											<Suspense fallback={<p>Loading...</p>}>
+												<Component />
+											</Suspense>
+										</CustomRoute>
+									</CrudProvider>
 								}
 							/>
 						);

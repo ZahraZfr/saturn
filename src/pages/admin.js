@@ -4,7 +4,7 @@ const Admin = () => {
     const logout = async () => {
         try {
             await auth.signOut(() => {
-                console.log("onjn");
+                console.log("sign out");
             });
         } catch (error) {
             console.log('error signing out: ', error);
@@ -23,21 +23,23 @@ const Admin = () => {
             </div>
 
 
-            <div className="sidebar t">
+            <div className="sidebar">
                 <ul>
-                    <li className="ext-2xl bg-yellow-300 rounded-full p-3"><Link to='/admin/projects/create' />
-                        new project
+                    <li className="ext-2xl bg-yellow-300 rounded-full p-3">
+                        <Link to='/admin/project/create' >
+                            new project
+                        </Link>
                     </li>
                 </ul>
             </div>
 
 
             <div className="content">
-                محتوای بعدی
+                محتوای کلی
             </div>
 
 
-           
+
         </div>
     )
 }
