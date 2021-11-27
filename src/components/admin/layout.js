@@ -42,11 +42,15 @@ const Admin = ({ children }) => {
 				</ul>
 			</div>
 
-			<div className="content" style={{
-				gridArea: 'content'
+			<div className="content " style={{
+				gridArea: 'content',
+				maxWidth: '800px',
+				marginLeft:'1em'
+				
 				}}>{children}
 			</div>
 
+			
 	
 		</div>
 	)

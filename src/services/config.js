@@ -51,10 +51,10 @@ export default {
 		},
 		project: {
 			fields: {
-				"Project name": {
+				projectName: {
 					type: "string"
 				},
-				"Duration time of project": {
+				projectDuration: {
 					type: "number"
 				}
 			}
