@@ -11,9 +11,13 @@ const CrudProvider = ({ children }) => {
 
     const { entityName } = useParams();
     const [tableValue, setTableValue] = useState([])
+    // const [change1, setChange1] = useState(true);
+    const [change, setChange] = useState(true);
+    const [change1, setChange1] = useState(true);
 
     const create = (event) => {
         event.preventDefault()
+        console.log("what");
         const form = new FormData(event.target)
         const values = Object.keys(config.entities[entityName].fields).reduce((values, field) => {
             const value = form.get(field)
@@ -30,26 +34,58 @@ const CrudProvider = ({ children }) => {
             .catch((error) => {
                 alert("unsuccessful" + error)
             })
+            // setChange1(!change1)
+        console.log("hi");
+        setChange(!change1)
     }
 
-    const updateData = () => {
-        const updatedPhase = {
-            duration: 'UP',
-            nameOfProject: 'UP',
+    const edit = ((id) => {
+        return (event) => {
+            event.preventDefault()
+            const form = new FormData(event.target)
+            const values = Object.keys(config.entities[entityName].fields).reduce((values, field) => {
+                const value = form.get(field)
+                values[field] = value
+                return values
+            }, {})
+            // console.log("iddd",id);
+            console.log(values);
+            console.log(Object.keys(tableValue)[id]);
+            const idEntityName = Object.keys(tableValue)[id]
+            update(ref(db, `${entityName}` + '/' + `${idEntityName}`), values)
+                .then(() => {
+                    alert("data successful update")
+                })
+                .catch((error) => {
+                    alert("unsuccessful" + error)
+                })
         }
+   
+    })
+    // const edit = (event) => {
+    //     event.preventDefault()
+    //     const form = new FormData(event.target)
+    //     const values = Object.keys(config.entities[entityName].fields).reduce((values, field) => {
+    //         const value = form.get(field)
+    //         values[field] = value
+    //         return values
+    //     }, {})
+    //     // console.log("iddd",id);
+    //     console.log(values);
+    //     console.log(Object.keys(tableValue)[0]);
+    //     const idEntityName = Object.keys(tableValue)[0]
+    //     update(ref(db, `${entityName}` + '/' + `${idEntityName}`), values)
+    //         .then(() => {
+    //             alert("data successful update")
+    //         })
+    //         .catch((error) => {
+    //             alert("unsuccessful" + error)
+    //         })
+    // }
 
-        update(ref(db, 'phase/id' + '3'), updatedPhase)
-            .then(() => {
-                alert("data successful")
-            })
-            .catch((error) => {
-                alert("unsuccessful" + error)
-            })
 
-    }
 
     const showData = () => {
-
         get(child(dbRef, `${entityName}`)).then((snapshot) => {
             if (snapshot.exists()) {
                 setTableValue(snapshot.val())
@@ -62,11 +98,12 @@ const CrudProvider = ({ children }) => {
         });
     }
 
+   
     useEffect(() => {
-        get(child(dbRef,`${entityName}`)).then((snapshot) => {
+        get(child(dbRef, `${entityName}`)).then((snapshot) => {
             if (snapshot.exists()) {
                 setTableValue(snapshot.val())
-                console.log(tableValue);
+                // console.log(tableValue);
                 // console.log(snapshot.val());
                 // console.log(  Object.values(snapshot.val())  )
             } else {
@@ -75,27 +112,29 @@ const CrudProvider = ({ children }) => {
         }).catch((error) => {
             console.error(error);
         });
-    },[entityName]);
+    }, [entityName, change,change1]);
 
-    const deleteData = () => {
-        remove(ref(db, 'phase/id' + '3'))
+    const deleteData = (id) => {
+        const idEntityName = Object.keys(tableValue)[id]
+        remove(ref(db, `${entityName}` + '/' + `${idEntityName}`))
             .then(() => {
                 alert("data successful remove")
             })
-            .catch((error) => {
-                alert("unsuccessful" + error)
+            .catch(() => {
+                alert("unseccesful")
             })
+        setChange(!change)
     }
 
     return (
         <CRUDContext.Provider
             value={{
                 create,
-                updateData,
+                edit,
                 deleteData,
                 showData,
                 tableValue,
-                
+
             }}
         >
             {children}

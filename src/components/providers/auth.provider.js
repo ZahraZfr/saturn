@@ -12,7 +12,7 @@ const AuthProvider = ({ children }) => {
 		auth.onAuthStateChanged((user) => {
 			setUser(user);
 			setPending(false)
-			console.log({ user });
+			// console.log({ user });
 		});
 	});
 
