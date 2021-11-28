@@ -4,81 +4,116 @@ import EntityForm from "../components/admin/entityForm";
 import CrudProvider from "../components/providers/crud.provider";
 import { useCRUD } from "../components/providers/crud.provider";
 import config from '../services/config';
-
+import { title } from 'case'
+import { useState } from "react";
 const Entity = () => {
-	const crud1 = useCRUD();
-	const { entityName, actionName } = useParams();
 
-	switch (actionName) {
-		case "create":
-			return <CrudProvider>
-				<EntityForm entityName={entityName} />
-			</CrudProvider>;
+    const crud = useCRUD();
+    const [idEdit, setIdEdit] = useState(null);
+    const { entityName, actionName } = useParams();
 
-		case "edit":
-			return <>
-				<EntityForm entityName={entityName} />
-			</>;
+    // const sepide = () =>{
+    //     setIdEdit(id)
+    // }
 
-		case "remove":
-			return <>
-				<p>You removing the {entityName}</p>
-			</>;
-		case "list":
-			return <CrudProvider>
-				<div className="text-xl flex flex-col bg-red-200 p-5" style={{ width: "80rem" }}>
-					<p className="text-right"><Link className="bg-blue-500 rounded-lg p-3"
-						to={`/admin/${entityName}/create`}>Add {entityName}</Link></p>
-					{/* <Link to={`/admin/${entityName}/edit`}>Edit selected {entityName}</Link> */}
-					<hr className="my-5" />
-					<p className="mt-5">
+    switch (actionName) {
+        case "create":
+            return <CrudProvider>
+                <EntityForm entityName={entityName} actionName={actionName} />
+            </CrudProvider>;
 
-						A table of all {entityName}s is going to be shown
+        case "edit":
+            return <CrudProvider>
+                <EntityForm entityName={entityName} actionName={actionName} id={idEdit}  />
+            </CrudProvider>;
 
-						<div className="show-data ">
+        case "remove":
+            return <>
+                <p>You removing the {entityName}</p>
+            </>;
+        case "list":
+            return <CrudProvider>
+                <div className="text-xl flex flex-col bg-red-200 p-5" style={{ width: "1000px" }}>
+                    <p className="text-right">
+                        <Link className="bg-blue-500 rounded-lg p-3"
+                            to={`/admin/${entityName}/create`}>Add {entityName}
+                        </Link>
+                    </p>
+                    {/* <Link to={`/admin/${entityName}/edit`}>Edit selected {entityName}</Link> */}
 
-							<div className="grid grid-cols-3 divide-x ">
-								<div>header table</div>
-								<div> <h1></h1></div>
-								<div> <h1></h1></div>
-							</div>
+                    <hr className="my-5" />
+                    <table>
+                        <thead>
+                            <tr>
+                                {Object.keys(config.entities[entityName].fields).map((titleEntity, id) => (
+                                    <th key={id}>{title(titleEntity)}</th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                {crud.tableValue && Object.values(crud.tableValue).map((field) => {
+                                    <span>
+                                        {Object.values(field).map((entity, id) => {
+                                            <td key={id}>hi{title(entity)}</td>
+                                        })}
+                                    </span>
+                                })}
+                            </tr>
+                        </tbody>
+                    </table>
 
+                    <div className="show-data">
+                        {/* <span className="divide-x">
+                            <span >{
+                                Object.keys(config.entities[entityName].fields).map(titleEntity => {
+                                    return (
+                                        <>
+                                            <span className="w-96 pr-40 mr-8">{title(titleEntity)}</span>
+                                        </>
+                                    )
+                                })}
+                            </span>
+                        </span> */}
 
-							<div className="grid grid-cols-3 divide-x bg-gray-100">
-								{
-									crud1.tableValue && Object.values(crud1.tableValue).map((field, id) => {
-										return (
-											<div key={id}>{Object.values(field)}</div>
-										)
-									})
-									//<div key={id}>{Object.values(field)}</div>
-									//	console.log(field,"fieldddd")
-									//console.log(Object.values(field), "fieldvallues")
-									// 	{(Object.values(field)).map((e,id) =>{
-									// 		return (<p key={id}>{e}fgdfdgf</p>)
-									// })}
-								}
+                        <div className="divide-x bg-gray-100">
+                            {
+                                crud.tableValue && Object.values(crud.tableValue).map((field, id) => {
+                                    // feild is array of each entity
+                                    return (
+                                        <>
+                                            <div className="relative">
+                                                <span key={id}>{Object.values(field).map((entity, id) => {
+                                                    
+                                             
+                                                    return (<>
+                                                        <span className="w-96 pr-40 mr-8 bg-gray-300" key={id}>{title(entity)}</span>
+                                                    </>)
+                                                })}</span>
+                                                <span className="absolute right-0">
+                                                   
+                                                    <button onClick={()=>setIdEdit(id)}  className="bg-green-600">
+                                                        <Link  to={`/admin/${entityName}/edit`}>edit</Link>
+                                                    </button>
 
+                                                    <button onClick={() => crud.deleteData(id)} className="bg-red-500">delete</button>
+                                                </span>
+                                            </div>
+                                        </>
+                                    )
+                                })
+                            }
+                        </div>
+                    </div>
+                </div>
+            </CrudProvider>;
 
-								{/* <div></div>
-								<div></div> */}
-								{/* <h1>h</h1> */}
-							</div>
-
-
-						</div>
-
-
-					</p>
-				</div>
-			</CrudProvider>;
-
-		default:
-			// get all of the entityName's rows from FB
-			return <>
-				<p>page not found ??</p>
-			</>;
-	}
+        default:
+            // get all of the entityName's rows from FB
+            return <>
+                <p>page not found ??</p>
+            </>;
+    }
 };
 
 export default Entity;

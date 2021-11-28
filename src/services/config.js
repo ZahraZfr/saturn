@@ -51,12 +51,13 @@ export default {
 		},
 		project: {
 			fields: {
-				projectName: {
-					type: "string"
-				},
 				projectDuration: {
 					type: "number"
+				},
+				projectName: {
+					type: "string"
 				}
+				
 			}
 		},
 		phase: {
