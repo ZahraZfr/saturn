@@ -63,7 +63,7 @@ const CrudProvider = ({ children }) => {
     //     }
     const keyPhase = async (id) => {
         try {
-            console.log(id);
+            // console.log(id);
             const idEntityName = Object.keys(tableValue)[id]
             const data = await get(child(dbRef, 'phase'))
             if (data.exists()) {
@@ -72,52 +72,36 @@ const CrudProvider = ({ children }) => {
                     // console.log("learningKey",idEntityName);
                     // console.log("keyPhaseSS",key);
                     // console.log(Object.values(value[entityName]));
-                    const m = Object.values(value[entityName]).map((sh)=>{
-                        console.log("sh",sh);
-                        console.log("fuck",idEntityName);
-                        if (sh == idEntityName) {
-                            // let now = Object.values(value[entityName])
-                            // return "khar", Object.values(value[entityName])
-                            console.log("khodaya", Object.values(value[entityName])      );
-                            // const s = Object.values(value[entityName])    
-                            // m  = ''
-             
-                            // console.log(id);
-                            // let val = {
-                            //     `${id}`: ""
-                            // }
-                            // const path = 'phase' + '/' + `${key}` + `${entityName}` + '/' + `${id}`
-                            // get(child(dbRef, `${entityName}`)).then((data) => {
-                            //     if (data.exists()) {
-    
-    
-                            //     }
-                            // }
-                        }
-                    })
+                    const m = Object.values(value[entityName])
                     // console.log("mm", m);
                     // console.log("mm2",idEntityName);
-                    // if (m == idEntityName) {
-                    //     // let now = Object.values(value[entityName])
-                    //     // return "khar", Object.values(value[entityName])
-                    //     console.log("khodaya", Object.values(value[entityName])      );
-                    //     // const s = Object.values(value[entityName])    
-                    //     // m  = ''
-                    //     break
+                    m.map((l)=>{
+                        if (l == idEntityName){
+                            console.log("doros shod?");
+                            console.log("khodaya adada", value[entityName]);
+                            console.log("khodaya adada", Object.values(value[entityName]));
+                            console.log("khodaya adada", Object.keys(value[entityName]));
+                            console.log("peida shod?", );
+                            const zahara =Object.values(value[entityName])
+                            // const indexes =Object.values(value[entityName])
+                            zahara.map((zahra,index)=>{
+                                if (zahra == l){
+                                    console.log(index);
+                                    let val = {
+                                        // [key]: ""
+                                        [index]:'---------'
+                                    }
+                                    const path = 'phase' + '/' + `${key}` +'/'+ `${entityName}` 
+                                    update(ref(db, path), val)
+                                    
+                                }
+                             
+                            })
+                           
+                      
                         
-                    //     // console.log(id);
-                    //     // let val = {
-                    //     //     `${id}`: ""
-                    //     // }
-                    //     // const path = 'phase' + '/' + `${key}` + `${entityName}` + '/' + `${id}`
-                    //     // get(child(dbRef, `${entityName}`)).then((data) => {
-                    //     //     if (data.exists()) {
-
-
-                    //     //     }
-                    //     // }
-                    // }
-                    // update(ref(db, 'phase' + '/' + `${key}` + `${entityName}` + '/',`${id}`), val)
+                        }
+                    })
                 }
             }
         } catch (error) {
