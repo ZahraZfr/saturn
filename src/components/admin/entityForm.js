@@ -72,7 +72,7 @@ const EntityForm = ({ entityName, actionName, id }) => {
 		event.preventDefault()
 		const form = new FormData(event.target)
 		const values = Object.keys(config.entities[entityName].fields).reduce((values, field) => {
-			const value = form.get(field)
+			const value = form.getAll(field)
 			values[field] = value
 			return values
 		}, {})

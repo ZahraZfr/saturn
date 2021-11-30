@@ -37,6 +37,16 @@ const CrudProvider = ({ children }) => {
     }
 
     const deleteData = (id) => {
+        // const keyPhaseValue = keyPhase(id)
+        keyPhase(id)
+        // console.log("chera", keyPhase(id));
+        // // update(ref(db, `${entityName}` + '/' + `${idEntityName}`), values)
+        // const val = {
+        //     id: ""
+        // }
+        // update(ref(db, 'phase' + '/' + `${keyPhaseValue}` + `${entityName}` + '/'), val)
+        // setChange(change + 1)
+
         const idEntityName = Object.keys(tableValue)[id]
         remove(ref(db, `${entityName}` + '/' + `${idEntityName}`))
             .then(() => {
@@ -47,6 +57,73 @@ const CrudProvider = ({ children }) => {
             })
         setChange(change + 1)
     }
+    //    qq: {
+    //         pp:af
+    //         oo:aa
+    //     }
+    const keyPhase = async (id) => {
+        try {
+            console.log(id);
+            const idEntityName = Object.keys(tableValue)[id]
+            const data = await get(child(dbRef, 'phase'))
+            if (data.exists()) {
+                // console.log(data.val());
+                for (const [key, value] of Object.entries(data.val())) {
+                    // console.log("learningKey",idEntityName);
+                    // console.log("keyPhaseSS",key);
+                    // console.log(Object.values(value[entityName]));
+                    const m = Object.values(value[entityName]).map((sh)=>{
+                        console.log("sh",sh);
+                        console.log("fuck",idEntityName);
+                        if (sh == idEntityName) {
+                            // let now = Object.values(value[entityName])
+                            // return "khar", Object.values(value[entityName])
+                            console.log("khodaya", Object.values(value[entityName])      );
+                            // const s = Object.values(value[entityName])    
+                            // m  = ''
+             
+                            // console.log(id);
+                            // let val = {
+                            //     `${id}`: ""
+                            // }
+                            // const path = 'phase' + '/' + `${key}` + `${entityName}` + '/' + `${id}`
+                            // get(child(dbRef, `${entityName}`)).then((data) => {
+                            //     if (data.exists()) {
+    
+    
+                            //     }
+                            // }
+                        }
+                    })
+                    // console.log("mm", m);
+                    // console.log("mm2",idEntityName);
+                    // if (m == idEntityName) {
+                    //     // let now = Object.values(value[entityName])
+                    //     // return "khar", Object.values(value[entityName])
+                    //     console.log("khodaya", Object.values(value[entityName])      );
+                    //     // const s = Object.values(value[entityName])    
+                    //     // m  = ''
+                    //     break
+                        
+                    //     // console.log(id);
+                    //     // let val = {
+                    //     //     `${id}`: ""
+                    //     // }
+                    //     // const path = 'phase' + '/' + `${key}` + `${entityName}` + '/' + `${id}`
+                    //     // get(child(dbRef, `${entityName}`)).then((data) => {
+                    //     //     if (data.exists()) {
+
+
+                    //     //     }
+                    //     // }
+                    // }
+                    // update(ref(db, 'phase' + '/' + `${key}` + `${entityName}` + '/',`${id}`), val)
+                }
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     useEffect(() => {
         get(child(dbRef, `${entityName}`)).then((data) => {
