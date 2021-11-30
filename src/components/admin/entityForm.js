@@ -1,18 +1,17 @@
 import config from "../../services/config";
-import CrudProvider, { useCRUD } from "../providers/crud.provider";
+import { useCRUD } from "../providers/crud.provider";
 import { title } from 'case'
-import { Navigate, useParams } from "react-router";
+import Select from 'react-select'
+import { useEffect, useState } from "react";
 
 const EntityForm = ({ entityName, actionName, id }) => {
 	const crud = useCRUD();
 	const Updatedfields = Object.keys(config.entities[entityName].fields).map(field => {
-		
-		// console.log(Object.values(crud.tableValue)[id][field]);
+
 		let field2 = ''
-		if(actionName!="create"){
+		if (actionName != "create") {
 			field2 = Object.values(crud.tableValue)[id][field]
 		}
-	
 
 		const { type, reference } = config.entities[entityName].fields[field];
 		switch (type) {
@@ -32,59 +31,60 @@ const EntityForm = ({ entityName, actionName, id }) => {
 				</label>;
 
 			case "ref":
-				return <p key={field}>field {field} is referencing to {reference}</p>;
+				// const options = [
+				// 	{ value: 'id', label: 'chocolate' },
+				// 	{ value: 'id', label: 'Strawberry' },
+				// 	{ value: 'id', label: 'Vanilla' }
+				// ]
+				// let options = []
+				const [options, setOptions] = useState([]);
+				useEffect(() => {
+					async function refData() {
+						let mh = await crud.learningData(reference)
+						let option = Object.keys(mh).map((keymh) => {
+							let Valuemh = Object.values(mh[keymh])[0][0]
+							return { value: keymh, label: Valuemh }
+						})
+						setOptions(option)
+						console.log(option);
+					}
+					refData()
+				}, []);
+				
 
+				return <label className="text-lg font-semibold" key={field} style={{ display: 'block', margin: '1em 0' }}>
+					Choosing {field} options {reference}
+					<Select
+						name={field}
+						isMulti
+						options={options}
+						className="basic-multi-select"
+						classNamePrefix="select"
+					/>
+
+				</label>;
 			default:
 				return <p key={field}>field type for &quot;{field}&quot; not recognized</p>;
 		}
 	});
 
-	// if (actionName == "create") {
-	// 	return (
-	// 		<>
-
-	// 			<form className="formCrud border border-black rounded-lg p-5" onSubmit={crud.create}>
-	// 				{Updatedfields}
-
-	// 				<button type="submit">{actionName}</button>
-	// 			</form>
-	// 		</>
-	// 	)
-
-	// }
-	// else {
-	// 	return (
-	// 		<>
-	// 			<form className="formCrud border border-black rounded-lg p-5" onSubmit={crud.edit(id)}>
-	// 				{Updatedfields}
-	// 				<button type="submit">{actionName}</button>
-	// 			</form>
-	// 		</>
-	// 	)
-	// }
-	// crud[actionName](id)
-
-	const handleSubmit = (event) =>{
+	const handleSubmit = (event) => {
 		event.preventDefault()
-        const form = new FormData(event.target)
-        const values = Object.keys(config.entities[entityName].fields).reduce((values, field) => {
-            const value = form.get(field)
-            values[field] = value
-            return values
-        }, {})
-		return crud[actionName](values,id)
-
-
+		const form = new FormData(event.target)
+		const values = Object.keys(config.entities[entityName].fields).reduce((values, field) => {
+			const value = form.get(field)
+			values[field] = value
+			return values
+		}, {})
+		return crud[actionName](values, id)
 	}
 
 	return (
 		<>
 			<form className="formCrud border border-black rounded-lg p-5" onSubmit={handleSubmit}>
 				{Updatedfields}
-
 				<button type="submit">{actionName}</button>
 			</form>
-
 		</>
 	)
 };

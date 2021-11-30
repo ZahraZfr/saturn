@@ -1,7 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { getDatabase, get, ref, set, push, child, update, remove } from 'firebase/database';
 import { db } from "../../services/firebase"
-import config from '../../services/config';
 import { useParams } from "react-router";
 
 const dbRef = ref(getDatabase());
@@ -11,11 +10,9 @@ const CrudProvider = ({ children }) => {
 
     const { entityName } = useParams();
     const [tableValue, setTableValue] = useState([])
-
     const [change, setChange] = useState(0);
 
-
-    const create = (values, id) => {
+    const create = (values) => {
         push(ref(db, `${entityName}`), values)
             .then(() => {
                 alert("data successful")
@@ -26,6 +23,7 @@ const CrudProvider = ({ children }) => {
             })
         setChange(change + 1)
     }
+
     const edit = (values, id) => {
         const idEntityName = Object.keys(tableValue)[id]
         update(ref(db, `${entityName}` + '/' + `${idEntityName}`), values)
@@ -53,16 +51,30 @@ const CrudProvider = ({ children }) => {
     useEffect(() => {
         get(child(dbRef, `${entityName}`)).then((data) => {
             if (data.exists()) {
-                setChange(change+1)
-                setTableValue(data.val())         
+                setChange(change + 1)
+                setTableValue(data.val())
             } else {
                 console.log("No data available");
             }
         }).catch((error) => {
             console.error(error);
         });
-       
+
     }, [entityName, change]);
+
+    const learningData = async (refrence) => {
+        try {
+            const data = await get(child(dbRef, `${refrence}`))
+            if (data.exists()) {
+                return data.val()
+            } else {
+                console.log("No data available");
+            }
+            return data.val()
+        } catch (error) {
+            console.error("The Promise is rejected!", error);
+        }
+    }
 
 
     return (
@@ -72,14 +84,13 @@ const CrudProvider = ({ children }) => {
                 edit,
                 deleteData,
                 tableValue,
-
+                learningData,
             }}
         >
             {children}
         </CRUDContext.Provider>
     );
 }
+
 export default CrudProvider;
-
-
 export const useCRUD = () => useContext(CRUDContext);
