@@ -34,6 +34,7 @@ $ yarn start
 - react select (use for select option)
 - react router ( version 6) 
 - prettier (opinionated code formatter)
+- case ( An extensible utility to convert, identify, and flip string case)
 
 ## Project status
 should complete in feature
