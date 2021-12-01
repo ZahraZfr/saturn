@@ -71,8 +71,9 @@ const CrudProvider = ({ children }) => {
                 for (const [key, value] of Object.entries(data.val())) {
                     // console.log("learningKey",idEntityName);
                     // console.log("keyPhaseSS",key);
-                    // console.log(Object.values(value[entityName]));
+                    console.log(value);
                     const m = Object.values(value[entityName])
+                    console.log(m,"kgak to saret konam");
                     // console.log("mm", m);
                     // console.log("mm2",idEntityName);
                     m.map((l) => {
