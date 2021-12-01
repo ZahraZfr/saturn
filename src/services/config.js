@@ -36,9 +36,8 @@ export default {
 	},
 	entities: {
 		learning: {
-			fields: {
-				
-				title: {
+			fields: {			
+				name: {
 					type: "string"
 				},
 				category: {
@@ -51,13 +50,13 @@ export default {
 		},
 		project: {
 			fields: {
-				projectDuration: {
-					type: "number"
-				},
-				projectName: {
+				projecta: {
 					type: "string"
+				},
+				projectb: {
+					type: "number"
 				}
-				
+					
 			}
 		},
 		phase: {
@@ -65,15 +64,16 @@ export default {
 				name: {
 					type: "string"
 				},
-				title: {
-					type: "string"
-				},
 				learningDays: {
 					type: "number"
 				},
-				topics: {
+				learning: {
 					type: "ref",
-					reference: "topic"
+					reference: "learning"
+				},
+				project: {
+					type: "ref",
+					reference: "project"
 				}
 			}
 		},

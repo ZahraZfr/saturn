@@ -12,10 +12,6 @@ const Entity = () => {
     const [idEdit, setIdEdit] = useState(null);
     const { entityName, actionName } = useParams();
 
-    // const sepide = () =>{
-    //     setIdEdit(id)
-    // }
-
     switch (actionName) {
         case "create":
             return <CrudProvider>
@@ -24,7 +20,7 @@ const Entity = () => {
 
         case "edit":
             return <CrudProvider>
-                <EntityForm entityName={entityName} actionName={actionName} id={idEdit}  />
+                <EntityForm entityName={entityName} actionName={actionName} id={idEdit} />
             </CrudProvider>;
 
         case "remove":
@@ -33,24 +29,23 @@ const Entity = () => {
             </>;
         case "list":
             return <CrudProvider>
-                <div className="text-xl flex flex-col bg-red-200 p-5" style={{ width: "1000px" }}>
+                <div className="text-xl flex flex-col bg-red-200 p-5" style={{ width: "1400px" }}>
                     <p className="text-right">
                         <Link className="bg-blue-500 rounded-lg p-3"
-                            to={`/admin/${entityName}/create`}>Add {entityName}
+                            to={`/admin/${entityName}/create`}>Add{entityName}
                         </Link>
                     </p>
-                    {/* <Link to={`/admin/${entityName}/edit`}>Edit selected {entityName}</Link> */}
 
                     <hr className="my-5" />
                     <table>
                         <thead>
-                            <tr>
+                            <tr className="text-left">
                                 {Object.keys(config.entities[entityName].fields).map((titleEntity, id) => (
                                     <th key={id}>{title(titleEntity)}</th>
                                 ))}
                             </tr>
                         </thead>
-                        <tbody>
+                        {/* <tbody>
                             <tr>
                                 {crud.tableValue && Object.values(crud.tableValue).map((field) => {
                                     <span>
@@ -60,22 +55,10 @@ const Entity = () => {
                                     </span>
                                 })}
                             </tr>
-                        </tbody>
+                        </tbody> */}
                     </table>
 
                     <div className="show-data">
-                        {/* <span className="divide-x">
-                            <span >{
-                                Object.keys(config.entities[entityName].fields).map(titleEntity => {
-                                    return (
-                                        <>
-                                            <span className="w-96 pr-40 mr-8">{title(titleEntity)}</span>
-                                        </>
-                                    )
-                                })}
-                            </span>
-                        </span> */}
-
                         <div className="divide-x bg-gray-100">
                             {
                                 crud.tableValue && Object.values(crud.tableValue).map((field, id) => {
@@ -84,16 +67,14 @@ const Entity = () => {
                                         <>
                                             <div className="relative">
                                                 <span key={id}>{Object.values(field).map((entity, id) => {
-                                                    
-                                             
                                                     return (<>
                                                         <span className="w-96 pr-40 mr-8 bg-gray-300" key={id}>{title(entity)}</span>
                                                     </>)
                                                 })}</span>
                                                 <span className="absolute right-0">
-                                                   
-                                                    <button onClick={()=>setIdEdit(id)}  className="bg-green-600">
-                                                        <Link  to={`/admin/${entityName}/edit`}>edit</Link>
+
+                                                    <button onClick={() => setIdEdit(id)} className="bg-green-600">
+                                                        <Link to={`/admin/${entityName}/edit`}>edit</Link>
                                                     </button>
 
                                                     <button onClick={() => crud.deleteData(id)} className="bg-red-500">delete</button>
