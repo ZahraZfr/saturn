@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { getDatabase, get, ref, set, push, child, update, remove } from 'firebase/database';
+import { getDatabase, get, ref, push, child, update, remove } from 'firebase/database';
 import { db } from "../../services/firebase"
 import { useParams } from "react-router";
 
@@ -75,31 +75,31 @@ const CrudProvider = ({ children }) => {
                     const m = Object.values(value[entityName])
                     // console.log("mm", m);
                     // console.log("mm2",idEntityName);
-                    m.map((l)=>{
-                        if (l == idEntityName){
+                    m.map((l) => {
+                        if (l == idEntityName) {
                             console.log("doros shod?");
                             console.log("khodaya adada", value[entityName]);
                             console.log("khodaya adada", Object.values(value[entityName]));
                             console.log("khodaya adada", Object.keys(value[entityName]));
-                            console.log("peida shod?", );
-                            const zahara =Object.values(value[entityName])
+                            console.log("peida shod?",);
+                            const zahara = Object.values(value[entityName])
                             // const indexes =Object.values(value[entityName])
-                            zahara.map((zahra,index)=>{
-                                if (zahra == l){
+                            zahara.map((zahra, index) => {
+                                if (zahra == l) {
                                     console.log(index);
                                     let val = {
                                         // [key]: ""
-                                        [index]:'---------'
+                                        [index]: '---------'
                                     }
-                                    const path = 'phase' + '/' + `${key}` +'/'+ `${entityName}` 
+                                    const path = 'phase' + '/' + `${key}` + '/' + `${entityName}`
                                     update(ref(db, path), val)
-                                    
+
                                 }
-                             
+
                             })
-                           
-                      
-                        
+
+
+
                         }
                     })
                 }
