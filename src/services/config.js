@@ -40,20 +40,20 @@ export default {
 				name: {
 					type: "string"
 				},
-				category: {
-					type: "string"
-				},
 				resource: {
 					type:"string"
+				},
+				type: {
+					type: "string"
 				}
 			}
 		},
 		project: {
 			fields: {
-				projecta: {
+				name: {
 					type: "string"
 				},
-				projectb: {
+				projectDuration: {
 					type: "number"
 				}
 					
@@ -64,16 +64,16 @@ export default {
 				name: {
 					type: "string"
 				},
-				learningDays: {
-					type: "number"
-				},
-				learning: {
+				phaseLearning: {
 					type: "ref",
 					reference: "learning"
 				},
 				project: {
 					type: "ref",
 					reference: "project"
+				},
+				startDate: {
+					type: "date"
 				}
 			}
 		},

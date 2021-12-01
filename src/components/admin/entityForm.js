@@ -30,6 +30,13 @@ const EntityForm = ({ entityName, actionName, id }) => {
 						name={field} type="number" required />
 				</label>;
 
+			case "date":
+				return <label className="text-lg font-semibold" key={field} style={{ display: 'block', margin: '1em 0' }}>
+					{title(field)}:
+					<input className="ml-5 rounded-lg shadow-lg pl-4 outline-none" placeholder={field2}
+						name={field} type="date" required />
+				</label>;
+
 			case "ref":
 				// const options = [
 				// 	{ value: 'id', label: 'chocolate' },
@@ -50,10 +57,10 @@ const EntityForm = ({ entityName, actionName, id }) => {
 					}
 					refData()
 				}, []);
-				
+
 
 				return <label className="text-lg font-semibold" key={field} style={{ display: 'block', margin: '1em 0' }}>
-					Choosing {field} options {reference}
+					Choosing {reference}
 					<Select
 						name={field}
 						isMulti
