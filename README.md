@@ -8,6 +8,7 @@ users just can see roadmap but admin can add learning entity , project entity an
 
 ## Installation
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Make a duplicate of .env.example and rename to .env, then configure your credentials.
 
 In the project directory, you can run:
 1. to create node_modules folder
@@ -18,6 +19,7 @@ $ yarn
 ```shell
 $ yarn start
 ``` 
+
 ## Screenshot
 
 
