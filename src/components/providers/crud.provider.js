@@ -115,6 +115,8 @@ const CrudProvider = ({ children }) => {
             if (data.exists()) {
                 setChange(change + 1)
                 setTableValue(data.val())
+                // console.log("DATA",data.exportVal());
+                // console.log("dataval",data.val());
             } else {
                 console.log("No data available");
             }

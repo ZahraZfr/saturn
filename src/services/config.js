@@ -81,6 +81,10 @@ export default {
 			fields: {
 				name: {
 					type: "string"
+				},
+				phase:{
+					type: "ref",
+					reference: "phase"
 				}
 			}
 		}
