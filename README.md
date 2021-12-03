@@ -41,3 +41,4 @@ should complete in feature
 - add custom click
 - add dark and light mode
 - write test for it
+- admin can register users and they can also update roadmap
