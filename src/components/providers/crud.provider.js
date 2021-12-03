@@ -9,6 +9,7 @@ const CRUDContext = createContext(null);
 const CrudProvider = ({ children }) => {
 
     const { entityName } = useParams();
+    const { actionName } = useParams();
     const [tableValue, setTableValue] = useState([])
     const [change, setChange] = useState(0);
     const [allPhaseData, setAllPhaseData] = useState();
@@ -82,8 +83,6 @@ const CrudProvider = ({ children }) => {
             if (data.exists()) {
                 setChange(change + 1)
                 setTableValue(data.val())
-            } else {
-                console.log("No data available");
             }
         }).catch((error) => {
             console.error(error);
@@ -117,7 +116,7 @@ const CrudProvider = ({ children }) => {
         }).catch((error) => {
             console.error(error);
         });
-    }, [change]);
+    }, [entityName,change]);
 
     //data koli used for roadmap
     useEffect(() => {
@@ -142,7 +141,7 @@ const CrudProvider = ({ children }) => {
         }).catch((error) => {
             console.error(error);
         });
-    }, [change]);
+    }, [entityName,change]);
 
 
     const learningData = async (refrence) => {
