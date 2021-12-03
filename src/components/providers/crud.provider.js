@@ -9,7 +9,6 @@ const CRUDContext = createContext(null);
 const CrudProvider = ({ children }) => {
 
     const { entityName } = useParams();
-    const { actionName } = useParams();
     const [tableValue, setTableValue] = useState([])
     const [change, setChange] = useState(0);
     const [allPhaseData, setAllPhaseData] = useState();
@@ -38,7 +37,7 @@ const CrudProvider = ({ children }) => {
         setChange(change + 1)
     }
     const deleteData = (id) => {
-        keyPhase(id)
+        // keyPhase(id)
         const idEntityName = Object.keys(tableValue)[id]
         remove(ref(db, `${entityName}` + '/' + `${idEntityName}`))
             .then(() => {
@@ -49,33 +48,34 @@ const CrudProvider = ({ children }) => {
             })
         setChange(change + 1)
     }
-    const keyPhase = async (id) => {
-        try {
-            const idEntityName = Object.keys(tableValue)[id]
-            const data = await get(child(dbRef, 'phase'))
-            if (data.exists()) {
-                for (const [key, value] of Object.entries(data.val())) {
-                    const m = Object.values(value[entityName])
-                    m.map((l) => {
-                        if (l == idEntityName) {
-                            const zahara = Object.values(value[entityName])
-                            zahara.map((zahra, index) => {
-                                if (zahra == l) {
-                                    let val = {
-                                        [index]: '---------'
-                                    }
-                                    const path = 'phase' + '/' + `${key}` + '/' + `${entityName}`
-                                    update(ref(db, path), val)
-                                }
-                            })
-                        }
-                    })
-                }
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
+    // const keyPhase = async (id) => {
+    //     try {
+    //         const idEntityName = Object.keys(tableValue)[id]
+    //         const data = await get(child(dbRef, 'phase'))
+    //         if (data.exists()) {
+    //             for (const [key, value] of Object.entries(data.val())) {
+    //                 const m = Object.values(value[entityName])
+    //                 m.map((l) => {
+    //                     if (l == idEntityName) {
+    //                         const zahara = Object.values(value[entityName])
+    //                         zahara.map((zahra, index) => {
+    //                             if (zahra == l) {
+    //                                 let val = {
+    //                                     [index]: '-'
+    //                                 }
+                                    
+    //                                 const path = 'phase' + '/' + `${key}` + '/' + `${entityName}`
+    //                                 update(ref(db, path), val)
+    //                             }
+    //                         })
+    //                     }
+    //                 })
+    //             }
+    //         }
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // };
 
     //data of every entity
     useEffect(() => {

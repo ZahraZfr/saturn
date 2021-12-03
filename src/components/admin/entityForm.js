@@ -38,12 +38,10 @@ const EntityForm = ({ entityName, actionName, id }) => {
 				</label>;
 
 			case "ref":
+				//Template of options:
 				// const options = [
 				// 	{ value: 'id', label: 'chocolate' },
-				// 	{ value: 'id', label: 'Strawberry' },
-				// 	{ value: 'id', label: 'Vanilla' }
 				// ]
-				// let options = []
 				const [options, setOptions] = useState([]);
 				useEffect(() => {
 					async function refData() {

@@ -21,7 +21,7 @@ const ContactForm = () => {
             nameOfProject: nameOfPro,
         }
 
-      
+
         push(ref(db, 'phase/id' + '5'), phase)
             .then(() => {
                 alert("data successful")
@@ -30,24 +30,24 @@ const ContactForm = () => {
                 alert("unsuccessful" + error)
             })
     }
-    
 
 
-    const updateData = () =>{
+
+    const updateData = () => {
 
         const updatedPhase = {
-        duration: 'UP',
-        nameOfProject: 'UP',
+            duration: 'UP',
+            nameOfProject: 'UP',
         }
-        
+
         update(ref(db, 'phase/id' + '3'), updatedPhase)
-        .then(() => {
-            alert("data successful")
-        })
-        .catch((error) => {
-            alert("unsuccessful" + error)
-        })
-     
+            .then(() => {
+                alert("data successful")
+            })
+            .catch((error) => {
+                alert("unsuccessful" + error)
+            })
+
     }
     const showData = () => {
 
@@ -115,7 +115,7 @@ const ContactForm = () => {
 
 
             <div className="show-data ">
-             
+
                 <div className="grid grid-cols-3 divide-x bg-gray-100">
                     <div>id</div>
                     <div>duration</div>
@@ -134,67 +134,129 @@ const ContactForm = () => {
 }
 export default ContactForm;
 
-	// const handleSubmit = (event)=>{
-	// 	if event.target.values == 'create'
-	// }
+// const handleSubmit = (event)=>{
+// 	if event.target.values == 'create'
+// }
 
-	// const create = (event) => {
-	// 	event.preventDefault()
+// const create = (event) => {
+// 	event.preventDefault()
 
-	// 	const form = new FormData(event.target)
-	// 	const values = Object.keys(config.entities[entityName].fields).map(field => {
-	// 		return form.get(field)
-	// 	})
-	// 	push(ref(db, 'phase/id' + '7'), values)
-	// 		.then(() => {
-	// 			alert("data successful")
-	// 		})
-	// 		.catch((error) => {
-	// 			alert("unsuccessful" + error)
-	// 		})
-	// };
+// 	const form = new FormData(event.target)
+// 	const values = Object.keys(config.entities[entityName].fields).map(field => {
+// 		return form.get(field)
+// 	})
+// 	push(ref(db, 'phase/id' + '7'), values)
+// 		.then(() => {
+// 			alert("data successful")
+// 		})
+// 		.catch((error) => {
+// 			alert("unsuccessful" + error)
+// 		})
+// };
 
-	// const updateData = () => {
-	//     const updatedPhase = {
-	//         duration: 'UP',
-	//         nameOfProject: 'UP',
-	//     }
+// const updateData = () => {
+//     const updatedPhase = {
+//         duration: 'UP',
+//         nameOfProject: 'UP',
+//     }
 
-	//     update(ref(db, 'phase/id' + '3'), updatedPhase)
-	//         .then(() => {
-	//             alert("data successful")
-	//         })
-	//         .catch((error) => {
-	//             alert("unsuccessful" + error)
-	//         })
+//     update(ref(db, 'phase/id' + '3'), updatedPhase)
+//         .then(() => {
+//             alert("data successful")
+//         })
+//         .catch((error) => {
+//             alert("unsuccessful" + error)
+//         })
 
-	// }
+// }
 
-	// const showData = () => {
+// const showData = () => {
 
-	//     get(child(dbRef, 'phase/id3')).then((snapshot) => {
-	//         if (snapshot.exists()) {
-	//             setTableValue(snapshot.val())
-	//             console.log(snapshot.val());
-	//         } else {
-	//             console.log("No data available");
-	//         }
-	//     }).catch((error) => {
-	//         console.error(error);
-	//     });
-	// }
+//     get(child(dbRef, 'phase/id3')).then((snapshot) => {
+//         if (snapshot.exists()) {
+//             setTableValue(snapshot.val())
+//             console.log(snapshot.val());
+//         } else {
+//             console.log("No data available");
+//         }
+//     }).catch((error) => {
+//         console.error(error);
+//     });
+// }
 
 
-	// const showData = () => {
+// const showData = () => {
 
-	// 	get(child(dbRef, 'phase/id3')).then((snapshot) => {
-	// 		if (snapshot.exists()) {
-	// 			setTableValue(snapshot.val())
-	// 			console.log(snapshot.val());
-	// 		} else {
-	// 			console.log("No data available");
-	// 		}
-	// 	}).catch((error) => {
-	// 		console.error(error);
-	// 	});
-	// }
+// 	get(child(dbRef, 'phase/id3')).then((snapshot) => {
+// 		if (snapshot.exists()) {
+// 			setTableValue(snapshot.val())
+// 			console.log(snapshot.val());
+// 		} else {
+// 			console.log("No data available");
+// 		}
+// 	}).catch((error) => {
+// 		console.error(error);
+// 	});
+// }
+
+/////////////////////
+<tr key={id}>
+{
+    Object.values(field).map((entity, id) => {
+        // console.log("fied",field);
+        //  console.log("field",field.learning);
+        return entity.map((entityField, id) => {
+            // console.log(id);
+
+            switch (typeof entityField) {
+                case "string":
+                    return <td className="w-96 pr-40 mr-8 bg-red-100" key={id}>{title(entityField)}</td>
+
+                case "object":
+                    return <td key={id}>
+                        <div className=" w-96 pr-40 mr-8 bg-gray-300" key={id}>{title(Object.values(entityField)[0])}</div>
+                    </td>
+
+                default:
+                    break;
+            }
+        })
+
+    })
+}
+</tr>
+
+//////////////////
+
+return (
+    <>
+        <tr key={id}>
+            {
+                
+                (field.learning).map((entity) => {
+
+                    return entity.name.map((entityField, id) => {
+                        switch (typeof entityField) {
+                            case "string":
+                                return <div className="w-96 pr-40 mr-8 bg-red-100" key={id}>{title(entityField)}</div>
+
+                            default:
+                                break;
+                        }
+                    })
+
+                })
+            }
+        </tr>
+        {/* 
+        <span className="absolute right-0">
+
+            <button onClick={() => setIdEdit(id)} className="bg-green-600">
+                <Link to={`/admin/${entityName}/edit`}>edit</Link>
+            </button>
+
+            <button onClick={() => crud.deleteData(id)} className="bg-red-500">delete</button>
+        </span> */}
+
+    </>
+)
