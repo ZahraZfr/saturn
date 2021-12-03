@@ -61,10 +61,10 @@ export default {
 		},
 		phase: {
 			fields: {
-				name: {
+				generalName: {
 					type: "string"
 				},
-				phaseLearning: {
+				learning: {
 					type: "ref",
 					reference: "learning"
 				},
@@ -81,6 +81,10 @@ export default {
 			fields: {
 				name: {
 					type: "string"
+				},
+				phase:{
+					type: "ref",
+					reference: "phase"
 				}
 			}
 		}

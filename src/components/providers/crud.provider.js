@@ -9,8 +9,11 @@ const CRUDContext = createContext(null);
 const CrudProvider = ({ children }) => {
 
     const { entityName } = useParams();
+    const { actionName } = useParams();
     const [tableValue, setTableValue] = useState([])
     const [change, setChange] = useState(0);
+    const [allPhaseData, setAllPhaseData] = useState();
+    const [allRoadmapData, setAllRoadmapData] = useState();
 
     const create = (values) => {
         push(ref(db, `${entityName}`), values)
@@ -23,7 +26,6 @@ const CrudProvider = ({ children }) => {
             })
         setChange(change + 1)
     }
-
     const edit = (values, id) => {
         const idEntityName = Object.keys(tableValue)[id]
         update(ref(db, `${entityName}` + '/' + `${idEntityName}`), values)
@@ -35,18 +37,8 @@ const CrudProvider = ({ children }) => {
             })
         setChange(change + 1)
     }
-
     const deleteData = (id) => {
-        // const keyPhaseValue = keyPhase(id)
         keyPhase(id)
-        // console.log("chera", keyPhase(id));
-        // // update(ref(db, `${entityName}` + '/' + `${idEntityName}`), values)
-        // const val = {
-        //     id: ""
-        // }
-        // update(ref(db, 'phase' + '/' + `${keyPhaseValue}` + `${entityName}` + '/'), val)
-        // setChange(change + 1)
-
         const idEntityName = Object.keys(tableValue)[id]
         remove(ref(db, `${entityName}` + '/' + `${idEntityName}`))
             .then(() => {
@@ -57,49 +49,25 @@ const CrudProvider = ({ children }) => {
             })
         setChange(change + 1)
     }
-    //    qq: {
-    //         pp:af
-    //         oo:aa
-    //     }
     const keyPhase = async (id) => {
         try {
-            // console.log(id);
             const idEntityName = Object.keys(tableValue)[id]
             const data = await get(child(dbRef, 'phase'))
             if (data.exists()) {
-                // console.log(data.val());
                 for (const [key, value] of Object.entries(data.val())) {
-                    // console.log("learningKey",idEntityName);
-                    // console.log("keyPhaseSS",key);
-                    // console.log(Object.values(value[entityName]));
                     const m = Object.values(value[entityName])
-                    // console.log("mm", m);
-                    // console.log("mm2",idEntityName);
                     m.map((l) => {
                         if (l == idEntityName) {
-                            console.log("doros shod?");
-                            console.log("khodaya adada", value[entityName]);
-                            console.log("khodaya adada", Object.values(value[entityName]));
-                            console.log("khodaya adada", Object.keys(value[entityName]));
-                            console.log("peida shod?",);
                             const zahara = Object.values(value[entityName])
-                            // const indexes =Object.values(value[entityName])
                             zahara.map((zahra, index) => {
                                 if (zahra == l) {
-                                    console.log(index);
                                     let val = {
-                                        // [key]: ""
                                         [index]: '---------'
                                     }
                                     const path = 'phase' + '/' + `${key}` + '/' + `${entityName}`
                                     update(ref(db, path), val)
-
                                 }
-
                             })
-
-
-
                         }
                     })
                 }
@@ -109,19 +77,72 @@ const CrudProvider = ({ children }) => {
         }
     };
 
+    //data of every entity
     useEffect(() => {
         get(child(dbRef, `${entityName}`)).then((data) => {
             if (data.exists()) {
                 setChange(change + 1)
                 setTableValue(data.val())
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
+    }, [entityName, change]);
+
+
+    //data koli used for phase 
+    useEffect(() => {
+        get(child(dbRef, `/`)).then((data) => {
+            if (data.exists()) {
+                const db = data.val()
+                const phases = Object.keys(db.phase).map((key) => {
+                    const phase = db.phase[key]
+                    const learning = phase.learning.map((learningId) => {
+                        return db.learning[learningId]
+                    })
+                    const project = phase.project.map((projectid) => {
+                        return db.project[projectid]
+                    })
+                    return {
+                        ...phase,
+                        learning,
+                        project,
+                    }
+                })
+                setAllPhaseData(phases)
             } else {
                 console.log("No data available");
             }
         }).catch((error) => {
             console.error(error);
         });
+    }, [entityName,change]);
 
-    }, [entityName, change]);
+    //data koli used for roadmap
+    useEffect(() => {
+        get(child(dbRef, `/`)).then((data) => {
+            if (data.exists()) {
+                setChange(change + 1)
+                const db = data.val()
+                const roadmaps = Object.keys(db.roadmap).map((key) => {
+                    const roadmap = db.roadmap[key]
+                    const phase = roadmap.phase.map((phaseid) => {
+                        return db.phase[phaseid]
+                    })
+                    return {
+                        ...roadmap,
+                        phase,
+                    }
+                })
+                setAllRoadmapData(roadmaps)
+            } else {
+                console.log("No data available");
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
+    }, [entityName,change]);
+
 
     const learningData = async (refrence) => {
         try {
@@ -137,7 +158,6 @@ const CrudProvider = ({ children }) => {
         }
     }
 
-
     return (
         <CRUDContext.Provider
             value={{
@@ -146,6 +166,9 @@ const CrudProvider = ({ children }) => {
                 deleteData,
                 tableValue,
                 learningData,
+                allPhaseData,
+                allRoadmapData,
+                
             }}
         >
             {children}
