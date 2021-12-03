@@ -3,7 +3,7 @@
 # Saturn
 
 ## Description
-this project is a education roadmap . have to access model , users and admin.
+this project is a education roadmap . have two access model , users and admin.
 users just can see roadmap but admin can add learning entity , project entity and add phase for roadmap. also can delete , edit them.
 
 ## Installation
