@@ -53,7 +53,6 @@ const EntityForm = ({ entityName, actionName, id }) => {
 							return { value: keymh, label: Valuemh }
 						})
 						setOptions(option)
-						console.log(option);
 					}
 					refData()
 				}, []);

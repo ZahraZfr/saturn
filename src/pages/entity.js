@@ -6,6 +6,7 @@ import { useCRUD } from "../components/providers/crud.provider";
 import config from '../services/config';
 import { title } from 'case'
 import { useState } from "react";
+
 const Entity = () => {
 
     const crud = useCRUD();
@@ -13,6 +14,7 @@ const Entity = () => {
     const { entityName, actionName } = useParams();
 
     switch (actionName) {
+
         case "create":
             return <CrudProvider>
                 <EntityForm entityName={entityName} actionName={actionName} />
@@ -28,6 +30,16 @@ const Entity = () => {
                 <p>You removing the {entityName}</p>
             </>;
         case "list":
+            if (entityName == "phase") {
+                var crudFucntion = crud.allPhaseData
+            }
+            else if (entityName == "roadmap") {
+                crudFucntion = crud.allRoadmapData
+            }
+            else {
+                crudFucntion = crud.tableValue
+            }
+
             return <CrudProvider>
                 <div className="text-xl flex flex-col bg-red-200 p-5" style={{ width: "1400px" }}>
                     <p className="text-right">
@@ -59,18 +71,31 @@ const Entity = () => {
                     </table>
 
                     <div className="show-data">
-                        <div className="divide-x bg-gray-100">
+                        <div className="divide-x bg-gray-100 learningandproject">
                             {
-                                crud.tableValue && Object.values(crud.tableValue).map((field, id) => {
-                                    // feild is array of each entity
+
+                                crudFucntion && Object.values(crudFucntion).map((field, id) => {
                                     return (
                                         <>
                                             <div className="relative">
-                                                <span key={id}>{Object.values(field).map((entity, id) => {
-                                                    return (<>
-                                                        <span className="w-96 pr-40 mr-8 bg-gray-300" key={id}>{title(entity)}</span>
-                                                    </>)
-                                                })}</span>
+                                                <span key={id}>
+                                                    {
+                                                        Object.values(field).map((entity, id) => {
+                                                            return entity.map((entityField) => {
+                                                                switch (typeof entityField) {
+                                                                    case "string":
+                                                                        return <span className="w-96 pr-40 mr-8 bg-gray-300" key={id}>{title(entityField)}</span>
+                                                                    case "object":
+                                                                        return <span className="w-96 pr-40 mr-8 bg-gray-300" key={id}>{title(Object.values(entityField)[0])}</span>
+                                                                    default:
+                                                                        break;
+                                                                }
+                                                            })
+
+                                                        })
+                                                    }
+                                                </span>
+
                                                 <span className="absolute right-0">
 
                                                     <button onClick={() => setIdEdit(id)} className="bg-green-600">
