@@ -6,9 +6,9 @@ import { useCRUD } from "../components/providers/crud.provider";
 import config from '../services/config';
 import { title } from 'case'
 import { useState } from "react";
-
+import editPicture from '../images/edit.png'
+import deletePicture from '../images/delete.png'
 const Entity = () => {
-
     const crud = useCRUD();
     const [idEdit, setIdEdit] = useState(null);
     const { entityName, actionName } = useParams();
@@ -50,15 +50,15 @@ const Entity = () => {
                     </p>
 
                     <hr className="my-5" />
-                    <table>
+                    <table className="bg-gray-100 rounded-3xl">
 
                         <thead>
                             <tr className="text-left">
                                 {Object.keys(config.entities[entityName].fields).map((titleEntity, id) => (
                                     <th key={id}>{title(titleEntity)}</th>
                                 ))}
-                                <th>edit</th>
-                                <th>delete</th>
+                                <th className="w-8">edit</th>
+                                <th className="w-8">delete</th>
                             </tr>
 
                         </thead>
@@ -83,13 +83,13 @@ const Entity = () => {
 
                                                     }
                                                     <td>
-                                                        <button onClick={() => setIdEdit(id)} className="bg-green-600 px-8 py-2 rounded-md">
-                                                            <Link to={`/admin/${entityName}/edit`}>edit</Link>
+                                                        <button onClick={() => setIdEdit(id)} >
+                                                            <Link to={`/admin/${entityName}/edit`}><img src={editPicture} width={40} height={40} alt="" /></Link>
                                                         </button>
                                                     </td>
 
                                                     <td>
-                                                        <button onClick={() => crud.deleteData(id)} className="bg-red-500 px-8 py-2 rounded-md">delete</button>
+                                                        <button onClick={() => crud.deleteData(id)} ><img src={deletePicture} width={40} height={40} alt="" /></button>
                                                     </td>
                                                     <img src="./delete.png" alt="" />
                                                 </tr>
@@ -118,13 +118,13 @@ const Entity = () => {
                                                     <td key={id}>{field.startDate}</td>
 
                                                     <td>
-                                                        <button onClick={() => setIdEdit(id)} className="bg-green-600 px-8 py-2 rounded-md">
-                                                            <Link to={`/admin/${entityName}/edit`}>edit</Link>
+                                                        <button onClick={() => setIdEdit(id)} >
+                                                            <Link to={`/admin/${entityName}/edit`}><img src={editPicture} width={40} height={40} alt="" /></Link>
                                                         </button>
                                                     </td>
 
                                                     <td>
-                                                        <button onClick={() => crud.deleteData(id)} className="bg-red-500 px-8 py-2 rounded-md ">delete</button>
+                                                        <button onClick={() => crud.deleteData(id)} ><img src={deletePicture} width={40} height={40} alt="" /></button>
                                                     </td>
                                                 </tr>
                                             </>
@@ -141,13 +141,13 @@ const Entity = () => {
                                                         }
                                                     </td>
                                                     <td>
-                                                        <button onClick={() => setIdEdit(id)} className="bg-green-600 px-8 py-2 rounded-md">
-                                                            <Link to={`/admin/${entityName}/edit`}>edit</Link>
+                                                        <button onClick={() => setIdEdit(id)} >
+                                                            <Link to={`/admin/${entityName}/edit`}><img src={editPicture} width={40} height={40} alt="" /></Link>
                                                         </button>
                                                     </td>
 
                                                     <td>
-                                                        <button onClick={() => crud.deleteData(id)} className="bg-red-500 px-8 py-2 rounded-md">delete</button>
+                                                        <button onClick={() => crud.deleteData(id)} ><img src={deletePicture} width={40} height={40} alt="" /></button>
                                                     </td>
                                                 </tr>
                                             </>
