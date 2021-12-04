@@ -22,11 +22,11 @@ const Admin = ({ children }) => {
 				gridArea: 'navbar',
 				backgroundColor: '#ececec'
 			}}>
-				<ul>
-					<li style={{ display: 'inline-block' }}>
+				<ul className="px-5 py-2">
+					<li className="text-xl text-gray-900" style={{ display: 'inline-block' }}>
 						<Link to={`/admin/${entityName}/list`}>{entityName}</Link>
 					</li>{" / "}
-					<li style={{ display: 'inline-block' }}>{actionName}</li>
+					<li className="text-xl text-gray-900" style={{ display: 'inline-block' }}>{actionName}</li>
 				</ul>
 			</div>
 
@@ -37,7 +37,7 @@ const Admin = ({ children }) => {
 				<ul>
 					{
 						Object.keys(config.entities)
-							.map(key => <li key={key}><Link to={`/admin/${key.toLowerCase()}/list`}>{key}</Link></li>)
+							.map(key => <li className="pl-5 py-7 text-xl shadow-xl font-semibold pb-2 hover:bg-gray-400 hover:text-white" key={key}><Link to={`/admin/${key.toLowerCase()}/list`}>{key}</Link></li>)
 					}
 				</ul>
 			</div>

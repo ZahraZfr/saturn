@@ -10,7 +10,7 @@ const Index = () => {
 		</div>
 		<img src={goal} width={300} height={300} alt="" className="flex justify-center mx-auto"/>
 		<div className="flex justify-center w-90 text-4xl  pt-10">
-			<Link className=" shadow-2xl m-5 bg-gray-300 px-32 text-center font-semibold p-8 rounded-full flex justify-center items-center text-justify" to="/login">Login</Link>
+			<Link className=" shadow-2xl m-5  px-32 text-center font-semibold p-8 rounded-full flex justify-center items-center text-justify bg-gray-300 hover:bg-gray-600 hover:text-white" to="/login">Login</Link>
 	
 		</div>
 	</>

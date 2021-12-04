@@ -87,7 +87,7 @@ const EntityForm = ({ entityName, actionName, id }) => {
 		<>
 			<form className="formCrud border border-black rounded-lg p-5" onSubmit={handleSubmit}>
 				{Updatedfields}
-				<button type="submit">{actionName}</button>
+				<button className="shadow-2xl bg-gray-300 hover:bg-gray-500 hover:text-white font-semibold px-10 py-2 rounded-3xl text-xl"  type="submit">{actionName}</button>
 			</form>
 		</>
 	)

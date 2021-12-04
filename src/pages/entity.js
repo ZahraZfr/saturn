@@ -44,7 +44,7 @@ const Entity = () => {
                 <div className="text-xl flex flex-col bg-red-200 p-5" style={{ width: "1400px" }}>
 
                     <p className="text-right">
-                        <Link className="bg-blue-500 rounded-lg p-3"
+                        <Link className="bg-blue-300 rounded-lg p-3 hover:bg-blue-600 hover:text-white shadow-xl "
                             to={`/admin/${entityName}/create`}>Add {title(entityName)}
                         </Link>
                     </p>
@@ -84,12 +84,12 @@ const Entity = () => {
                                                     }
                                                     <td>
                                                         <button onClick={() => setIdEdit(id)} >
-                                                            <Link to={`/admin/${entityName}/edit`}><img src={editPicture} width={40} height={40} alt="" /></Link>
+                                                            <Link to={`/admin/${entityName}/edit`}><img  className="shadow-2xl" src={editPicture} width={30} height={30} alt="" /></Link>
                                                         </button>
                                                     </td>
 
                                                     <td>
-                                                        <button onClick={() => crud.deleteData(id)} ><img src={deletePicture} width={40} height={40} alt="" /></button>
+                                                        <button onClick={() => crud.deleteData(id)} ><img  className="shadow-2xl" src={deletePicture} width={30} height={30} alt="" /></button>
                                                     </td>
                                                     <img src="./delete.png" alt="" />
                                                 </tr>
@@ -119,12 +119,12 @@ const Entity = () => {
 
                                                     <td>
                                                         <button onClick={() => setIdEdit(id)} >
-                                                            <Link to={`/admin/${entityName}/edit`}><img src={editPicture} width={40} height={40} alt="" /></Link>
+                                                            <Link to={`/admin/${entityName}/edit`}><img  className="shadow-2xl" src={editPicture} width={30} height={30} alt="" /></Link>
                                                         </button>
                                                     </td>
 
                                                     <td>
-                                                        <button onClick={() => crud.deleteData(id)} ><img src={deletePicture} width={40} height={40} alt="" /></button>
+                                                        <button onClick={() => crud.deleteData(id)} ><img  className="shadow-2xl" src={deletePicture} width={30} height={30} alt="" /></button>
                                                     </td>
                                                 </tr>
                                             </>
@@ -141,13 +141,13 @@ const Entity = () => {
                                                         }
                                                     </td>
                                                     <td>
-                                                        <button onClick={() => setIdEdit(id)} >
-                                                            <Link to={`/admin/${entityName}/edit`}><img src={editPicture} width={40} height={40} alt="" /></Link>
+                                                        <button  onClick={() => setIdEdit(id)} >
+                                                            <Link to={`/admin/${entityName}/edit`}><img  className="shadow-2xl" src={editPicture} width={30} height={30} alt="" /></Link>
                                                         </button>
                                                     </td>
 
                                                     <td>
-                                                        <button onClick={() => crud.deleteData(id)} ><img src={deletePicture} width={40} height={40} alt="" /></button>
+                                                        <button onClick={() => crud.deleteData(id)} ><img src={deletePicture} width={30} height={30} alt="" /></button>
                                                     </td>
                                                 </tr>
                                             </>
