@@ -68,8 +68,9 @@ const Entity = () => {
                                 crudFucntion && Object.values(crudFucntion).map((field, id) => {
                                     //field is an object that its key is filed of phase example.
                                     //genralName , leraning, roject, startdate
+                                   
                                     const arrayoftitle = Object.keys(field)
-
+//  
                                     switch (entityName) {
                                         case "learning":
                                         case "project":
@@ -79,18 +80,18 @@ const Entity = () => {
                                                         arrayoftitle.map((a) => {
                                                             return <td key={id}>{field[a]}</td>
                                                         })
-                                                        
+
                                                     }
                                                     <td>
-                                                        <button onClick={() => setIdEdit(id)} className="bg-green-600">
+                                                        <button onClick={() => setIdEdit(id)} className="bg-green-600 px-8 py-2 rounded-md">
                                                             <Link to={`/admin/${entityName}/edit`}>edit</Link>
                                                         </button>
                                                     </td>
 
                                                     <td>
-                                                        <button onClick={() => crud.deleteData(id)} className="bg-red-500">delete</button>
+                                                        <button onClick={() => crud.deleteData(id)} className="bg-red-500 px-8 py-2 rounded-md">delete</button>
                                                     </td>
-
+                                                    <img src="./delete.png" alt="" />
                                                 </tr>
 
                                             </>
@@ -117,13 +118,13 @@ const Entity = () => {
                                                     <td key={id}>{field.startDate}</td>
 
                                                     <td>
-                                                        <button onClick={() => setIdEdit(id)} className="bg-green-600">
+                                                        <button onClick={() => setIdEdit(id)} className="bg-green-600 px-8 py-2 rounded-md">
                                                             <Link to={`/admin/${entityName}/edit`}>edit</Link>
                                                         </button>
                                                     </td>
 
                                                     <td>
-                                                        <button onClick={() => crud.deleteData(id)} className="bg-red-500">delete</button>
+                                                        <button onClick={() => crud.deleteData(id)} className="bg-red-500 px-8 py-2 rounded-md ">delete</button>
                                                     </td>
                                                 </tr>
                                             </>
@@ -140,13 +141,13 @@ const Entity = () => {
                                                         }
                                                     </td>
                                                     <td>
-                                                        <button onClick={() => setIdEdit(id)} className="bg-green-600">
+                                                        <button onClick={() => setIdEdit(id)} className="bg-green-600 px-8 py-2 rounded-md">
                                                             <Link to={`/admin/${entityName}/edit`}>edit</Link>
                                                         </button>
                                                     </td>
 
                                                     <td>
-                                                        <button onClick={() => crud.deleteData(id)} className="bg-red-500">delete</button>
+                                                        <button onClick={() => crud.deleteData(id)} className="bg-red-500 px-8 py-2 rounded-md">delete</button>
                                                     </td>
                                                 </tr>
                                             </>
