@@ -9,11 +9,10 @@ const CRUDContext = createContext(null);
 const CrudProvider = ({ children }) => {
 
     const { entityName } = useParams();
-    const { actionName } = useParams();
     const [tableValue, setTableValue] = useState([])
     const [change, setChange] = useState(0);
-    const [allPhaseData, setAllPhaseData] = useState();
-    const [allRoadmapData, setAllRoadmapData] = useState();
+    const [allPhaseData, setAllPhaseData] = useState([]);
+    const [allRoadmapData, setAllRoadmapData] = useState([]);
 
     const create = (values) => {
         push(ref(db, `${entityName}`), values)
@@ -62,8 +61,9 @@ const CrudProvider = ({ children }) => {
                             zahara.map((zahra, index) => {
                                 if (zahra == l) {
                                     let val = {
-                                        [index]: '---------'
+                                        [index]: '-'
                                     }
+                                    
                                     const path = 'phase' + '/' + `${key}` + '/' + `${entityName}`
                                     update(ref(db, path), val)
                                 }
@@ -77,7 +77,7 @@ const CrudProvider = ({ children }) => {
         }
     };
 
-    //data of every entity
+    //data of every entity that key of project and learning is change to their name
     useEffect(() => {
         get(child(dbRef, `${entityName}`)).then((data) => {
             if (data.exists()) {
@@ -90,7 +90,7 @@ const CrudProvider = ({ children }) => {
     }, [entityName, change]);
 
 
-    //data koli used for phase 
+    //data koli used for phase that key of phase is change to their name
     useEffect(() => {
         get(child(dbRef, `/`)).then((data) => {
             if (data.exists()) {

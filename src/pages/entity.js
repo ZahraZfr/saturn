@@ -42,75 +42,122 @@ const Entity = () => {
 
             return <CrudProvider>
                 <div className="text-xl flex flex-col bg-red-200 p-5" style={{ width: "1400px" }}>
+
                     <p className="text-right">
                         <Link className="bg-blue-500 rounded-lg p-3"
-                            to={`/admin/${entityName}/create`}>Add{entityName}
+                            to={`/admin/${entityName}/create`}>Add {title(entityName)}
                         </Link>
                     </p>
 
                     <hr className="my-5" />
                     <table>
+
                         <thead>
                             <tr className="text-left">
                                 {Object.keys(config.entities[entityName].fields).map((titleEntity, id) => (
                                     <th key={id}>{title(titleEntity)}</th>
                                 ))}
+                                <th>edit</th>
+                                <th>delete</th>
                             </tr>
+
                         </thead>
-                        {/* <tbody>
-                            <tr>
-                                {crud.tableValue && Object.values(crud.tableValue).map((field) => {
-                                    <span>
-                                        {Object.values(field).map((entity, id) => {
-                                            <td key={id}>hi{title(entity)}</td>
-                                        })}
-                                    </span>
-                                })}
-                            </tr>
-                        </tbody> */}
-                    </table>
-
-                    <div className="show-data">
-                        <div className="divide-x bg-gray-100 learningandproject">
+                        <tbody>
                             {
-
+                                //crudFucntion :array of Object ,indexes show number of roadmap we created.
                                 crudFucntion && Object.values(crudFucntion).map((field, id) => {
-                                    return (
-                                        <>
-                                            <div className="relative">
-                                                <span key={id}>
+                                    //field is an object that its key is filed of phase example.
+                                    //genralName , leraning, roject, startdate
+                                    const arrayoftitle = Object.keys(field)
+
+                                    switch (entityName) {
+                                        case "learning":
+                                        case "project":
+                                            return <>
+                                                <tr>
                                                     {
-                                                        Object.values(field).map((entity, id) => {
-                                                            return entity.map((entityField) => {
-                                                                switch (typeof entityField) {
-                                                                    case "string":
-                                                                        return <span className="w-96 pr-40 mr-8 bg-gray-300" key={id}>{title(entityField)}</span>
-                                                                    case "object":
-                                                                        return <span className="w-96 pr-40 mr-8 bg-gray-300" key={id}>{title(Object.values(entityField)[0])}</span>
-                                                                    default:
-                                                                        break;
-                                                                }
-                                                            })
-
+                                                        arrayoftitle.map((a) => {
+                                                            return <td key={id}>{field[a]}</td>
                                                         })
+                                                        
                                                     }
-                                                </span>
+                                                    <td>
+                                                        <button onClick={() => setIdEdit(id)} className="bg-green-600">
+                                                            <Link to={`/admin/${entityName}/edit`}>edit</Link>
+                                                        </button>
+                                                    </td>
 
-                                                <span className="absolute right-0">
+                                                    <td>
+                                                        <button onClick={() => crud.deleteData(id)} className="bg-red-500">delete</button>
+                                                    </td>
 
-                                                    <button onClick={() => setIdEdit(id)} className="bg-green-600">
-                                                        <Link to={`/admin/${entityName}/edit`}>edit</Link>
-                                                    </button>
+                                                </tr>
 
-                                                    <button onClick={() => crud.deleteData(id)} className="bg-red-500">delete</button>
-                                                </span>
-                                            </div>
-                                        </>
-                                    )
+                                            </>
+
+                                        case "phase":
+                                            return <>
+                                                <tr>
+                                                    <td key={id}>{field.generalName}</td>
+
+                                                    <td key={id}>
+                                                        {
+                                                            field.learning.map((x) => {
+                                                                return <tr key={id}>{x.name}</tr>
+                                                            })
+                                                        }
+                                                    </td>
+                                                    <td key={id}>
+                                                        {
+                                                            field.project.map((x) => {
+                                                                return <tr key={id}>{x.name}</tr>
+                                                            })
+                                                        }
+                                                    </td>
+                                                    <td key={id}>{field.startDate}</td>
+
+                                                    <td>
+                                                        <button onClick={() => setIdEdit(id)} className="bg-green-600">
+                                                            <Link to={`/admin/${entityName}/edit`}>edit</Link>
+                                                        </button>
+                                                    </td>
+
+                                                    <td>
+                                                        <button onClick={() => crud.deleteData(id)} className="bg-red-500">delete</button>
+                                                    </td>
+                                                </tr>
+                                            </>
+
+                                        case "roadmap":
+                                            return <>
+                                                <tr>
+                                                    <td key={id}>{field.name}</td>
+                                                    <td key={id}>
+                                                        {
+                                                            field.phase.map((x) => {
+                                                                return <tr key={id}>{x.generalName}</tr>
+                                                            })
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        <button onClick={() => setIdEdit(id)} className="bg-green-600">
+                                                            <Link to={`/admin/${entityName}/edit`}>edit</Link>
+                                                        </button>
+                                                    </td>
+
+                                                    <td>
+                                                        <button onClick={() => crud.deleteData(id)} className="bg-red-500">delete</button>
+                                                    </td>
+                                                </tr>
+                                            </>
+
+                                        default:
+                                            break;
+                                    }
                                 })
                             }
-                        </div>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </CrudProvider>;
 

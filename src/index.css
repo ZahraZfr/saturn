@@ -2,6 +2,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,7 +12,41 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.formCrud{
+.formCrud {
   background-color: #EDF2F4;
 
+}
+
+/* table css */
+
+table {
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #c6c7cc;
+  padding: 10px 15px;
+}
+
+th {
+  font-weight: bold;
+}
+
+
+
+
+
+thead tr th {
+  height: 30px;
+  line-height: 30px;
+  /*text-align: left;*/
+}
+
+tbody {
+  border-top: 2px solid black;
+}
+
+tbody td:last-child, thead th:last-child {
+  border-right: none !important;
 }

@@ -12,7 +12,6 @@ const AuthProvider = ({ children }) => {
 		auth.onAuthStateChanged((user) => {
 			setUser(user);
 			setPending(false)
-			// console.log({ user });
 		});
 	});
 
@@ -51,5 +50,4 @@ const AuthProvider = ({ children }) => {
 };
 
 export default AuthProvider;
-
 export const useAuth = () => useContext(AuthContext);
