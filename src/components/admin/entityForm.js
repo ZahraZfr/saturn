@@ -45,10 +45,10 @@ const EntityForm = ({ entityName, actionName, id }) => {
 				const [options, setOptions] = useState([]);
 				useEffect(() => {
 					async function refData() {
-						let mh = await crud.learningData(reference)
-						let option = Object.keys(mh).map((keymh) => {
-							let Valuemh = Object.values(mh[keymh])[0][0]
-							return { value: keymh, label: Valuemh }
+						let refData = await crud.learningData(reference)
+						let option = Object.keys(refData).map((keyRef) => {
+							let ValueRef = Object.values(refData[keyRef])[0][0]
+							return { value: keyRef, label: ValueRef }
 						})
 						setOptions(option)
 					}
