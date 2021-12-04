@@ -260,3 +260,229 @@ return (
 
     </>
 )
+///////////////////
+{
+    crudFucntion && Object.values(crudFucntion).map((field, id) => {
+        return Object.keys(field).map((a) => {
+
+            if (a == "generalName") {
+                return (
+                    <>
+                        <td key={id}>
+                            {
+
+                                (field[a]).map((entity) => {
+
+                                    return <div className="w-96 pr-40 mr-8 bg-red-100" key={id}>{title(entity)}</div>
+
+
+
+                                })
+                            }
+                        </td>
+
+
+                    </>
+                )
+            }
+
+            else if (a == "learning") {
+                return (
+                    <>
+                        <td key={id}>
+                            {
+
+                                (field[a]).map((entity) => {
+
+                                    return entity.name.map((entityField, id) => {
+                                        switch (typeof entityField) {
+                                            case "string":
+                                                return <div className="w-96 pr-40 mr-8 bg-red-100" key={id}>{title(entityField)}</div>
+
+                                            default:
+                                                break;
+                                        }
+                                    })
+
+                                })
+                            }
+                        </td>
+
+
+                    </>
+                )
+            }
+
+            else if (a == "project") {
+                return (
+                    <>
+                        <td key={id}>
+                            {
+
+                                (field[a]).map((entity) => {
+
+                                    return entity.name.map((entityField, id) => {
+                                        switch (typeof entityField) {
+                                            case "string":
+                                                return <div className="w-96 pr-40 mr-8 bg-red-100" key={id}>{title(entityField)}</div>
+
+                                            default:
+                                                break;
+                                        }
+                                    })
+
+                                })
+                            }
+                        </td>
+
+
+                    </>
+                )
+            }
+
+            else if (a == "phase") {
+                console.log(a);
+                return (
+                    <>
+                        <td key={id}>
+                            {
+                                (field[a]).map((entity) => {
+                                    return entity.generalName.map((entityField, id) => {
+                                        switch (typeof entityField) {
+                                            case "string":
+                                                return <div className="w-96 pr-40 mr-8 bg-red-100" key={id}>{title(entityField)}</div>
+
+                                            default:
+                                                break;
+                                        }
+                                    })
+
+                                })
+                            }
+                        </td>
+                    </>
+                )
+            }
+
+            else if (a == "projectDuration") {
+                return (
+                    <>
+                        <td key={id}>
+                            {
+
+                                (field[a]).map((entity) => {
+
+                                    return <div className="w-96 pr-40 mr-8 bg-red-100" key={id}>{title(entity)}</div>
+
+
+
+                                })
+                            }
+                        </td>
+
+
+                    </>
+                )
+            }
+
+            else {
+                return (
+                    <>
+                        <td key={id}>
+                            {
+
+                                (field[a]).map((entity) => {
+
+                                    return <div className="w-96 pr-40 mr-8 bg-red-100" key={id}>{title(entity)}</div>
+
+
+
+                                })
+                            }
+                        </td>
+
+
+                    </>
+                )
+            }
+        })
+
+
+        })
+}
+
+
+/////////////////////
+{
+    Object.values(field).map((entity) => {
+        
+        
+         return entity.map((entityField,index) => {                                                    
+
+            switch (typeof entityField) {
+                case "string":
+                    return <td className="w-96 pr-40 mr-8 bg-red-100" key={id}>{title(entityField)}</td>
+
+                case "object":
+                    return Object.keys(field).map((a) => {
+                        
+                        if (a == "learning") {
+                            return (
+                                <>
+                                    <td >
+                                        {
+                                            (field[a]).map((entity,id) => {
+                                                return entity.name.map((entityField) => {
+                                                    
+                                                    return <div key={id} className="w-96 pr-40 mr-8 bg-red-100" >{title(entityField)}</div>
+                                                })
+
+                                            })
+                                        }
+                                    </td>
+                                </>
+                            )
+                            
+                        }
+                        
+
+                        // else if (a == "phase") {
+                        //     return (
+                        //         <>
+                        //             <td key={id}>
+                        //                 {
+                        //                     (field[a]).map((entity) => {
+                        //                         return entity.generalName.map((entityField, id) => {
+                        //                             switch (typeof entityField) {
+                        //                                 case "string":
+                        //                                     return <div className="w-96 pr-40 mr-8 bg-red-100" key={id}>{title(entityField)}</div>
+
+                        //                                 default:
+                        //                                     break;
+                        //                             }
+                        //                         })
+
+                        //                     })
+                        //                 }
+                        //             </td>
+                        //         </>
+                        //     )
+                        // }
+                        // else
+                        //     return <td key={id}>
+                        //         <div className=" w-96 pr-40 mr-8 bg-gray-300" key={id}>{title(Object.values(entityField)[0])}</div>
+                        //     </td>
+
+
+
+
+                    })
+
+
+                default:
+                    break;
+            }
+        })
+
+    })
+}
