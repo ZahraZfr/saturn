@@ -23,7 +23,7 @@ const Register = () => {
 				password
 			}, () => {
 				alert("done")
-				navigate("/", { replace: true });
+				navigate("/admin", { replace: true });
 			})
 		} catch (e) {
 			setError(e.message)
@@ -31,19 +31,17 @@ const Register = () => {
 	};
 
 	return (
-		<div>
-			<form onSubmit={handleSubmit} className="text-center text-3xl flex flex-col p-60 bg-red-500 justify-center">
-				<p className="mb-5">{error}</p>
+		<div className="text-3xl text-center pt-14 rounded-full ">
+			<p className="text-red-500 text-base text-2xl">{error}</p>
 
+			<form className="flex justify-center mx-auto rounded-2xl flex-col mt-6 w-1/3 bg-gray-200 shadow-xl" onSubmit={handleSubmit}>
 				<label className="mb-5">
-					Email: <input name="email" type="email" />
+					Email: <input className="shadow-2xl bg-white w-3/5 py-5 px-3 rounded-2xl mx-8 mt-28 mb-2" name="email" type="email" required />
 				</label>
-
-				<label className="mb-5">
-					Password: <input name="password" type="password" />
+				<label>
+					Password: <input className="shadow-2xl bg-white w-3/5 py-5 px-3 rounded-2xl mx-8 mb-5" name="password" type="password" required />
 				</label>
-
-				<button className="bg-gray-300" type="submit">Register</button>
+				<button className="mb-28 flex items-center justify-center mt-7 mx-auto hover:text-white bg-blue-400 hover:bg-blue-800 px-36 py-5 w-32 rounded-full" type="submit" >Register</button>
 			</form>
 		</div>
 	);

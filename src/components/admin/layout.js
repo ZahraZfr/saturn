@@ -1,8 +1,26 @@
 import { useParams } from "react-router"
 import { Link } from "react-router-dom"
 import config from "../../services/config";
+import { auth } from '../../services/firebase'
+
+
 
 const Admin = ({ children }) => {
+
+
+
+	// const auth = useAuth()
+
+	const logout = async () => {
+		try {
+			await auth.signOut(() => {
+				console.log("sign out");
+			
+			});
+		} catch (error) {
+			console.log('error signing out: ', error);
+		}
+	}
 
 	const { entityName, actionName } = useParams()
 
@@ -23,10 +41,19 @@ const Admin = ({ children }) => {
 				backgroundColor: '#ececec'
 			}}>
 				<ul className="px-5 py-2">
-					<li className="text-xl text-gray-900" style={{ display: 'inline-block' }}>
+					{/* <li className="text-xl text-gray-900" style={{ display: 'inline-block' }}>
 						<Link to={`/admin/${entityName}/list`}>{entityName}</Link>
 					</li>{" / "}
 					<li className="text-xl text-gray-900" style={{ display: 'inline-block' }}>{actionName}</li>
+				 */}
+
+					<div>
+						< Link to={`/admin`} className="px-8 py-2 text-xl bg-yellow-500 hover:bg-yellow-600 rounded-2xl fixed right-40 top-2  text-white shadow-lg">Home</Link>
+					</div>
+					<div>
+						<button className="px-8 py-2 text-xl bg-red-500 hover:bg-red-600 rounded-2xl fixed top-2 right-5 text-white shadow-lg" onClick={logout}>Log out</button>
+					</div>
+
 				</ul>
 			</div>
 
@@ -45,13 +72,13 @@ const Admin = ({ children }) => {
 			<div className="content " style={{
 				gridArea: 'content',
 				maxWidth: '800px',
-				marginLeft:'1em'
-				
-				}}>{children}
+				marginLeft: '1em'
+
+			}}>{children}
 			</div>
 
-			
-	
+
+
 		</div>
 	)
 };

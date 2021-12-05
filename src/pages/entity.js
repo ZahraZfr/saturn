@@ -65,31 +65,55 @@ const Entity = () => {
                         <tbody>
                             {
                                 //crudFucntion :array of Object ,indexes show number of roadmap we created.
+                                // id asli
                                 crudFucntion && Object.values(crudFucntion).map((field, id) => {
                                     //field is an object that its key is filed of phase example.
                                     //genralName , leraning, roject, startdate
-                                   
+
                                     const arrayoftitle = Object.keys(field)
-//  
+                                    //  
                                     switch (entityName) {
                                         case "learning":
-                                        case "project":
                                             return <>
-                                                <tr>
+                                                <tr key={id+3}>
                                                     {
-                                                        arrayoftitle.map((a) => {
-                                                            return <td key={id}>{field[a]}</td>
+                                                        arrayoftitle.map((a, index) => {
+                                                            return <td key={index}>{field[a]}</td>
                                                         })
 
                                                     }
                                                     <td>
                                                         <button onClick={() => setIdEdit(id)} >
-                                                            <Link to={`/admin/${entityName}/edit`}><img  className="shadow-2xl" src={editPicture} width={30} height={30} alt="" /></Link>
+                                                            <Link to={`/admin/${entityName}/edit`}><img className="shadow-2xl" src={editPicture} width={30} height={30} alt="" /></Link>
                                                         </button>
                                                     </td>
 
                                                     <td>
-                                                        <button onClick={() => crud.deleteData(id)} ><img  className="shadow-2xl" src={deletePicture} width={30} height={30} alt="" /></button>
+                                                        <button onClick={() => crud.deleteData(id)} ><img className="shadow-2xl" src={deletePicture} width={30} height={30} alt="" /></button>
+                                                    </td>
+                                                    <img src="./delete.png" alt="" />
+                                                </tr>
+
+                                            </>
+                                        case "project":
+                                            return <>
+                                                <tr key={id+1}>
+                                                    {
+                                                        arrayoftitle.map((a, index) => {
+                                                            return <td key={index}>{field[a]}</td>
+                                                        })
+
+                                                    }
+                                                    <td >
+                                                        <button onClick={() => setIdEdit(id)} >
+                                                            <Link to={`/admin/${entityName}/edit`}>
+                                                                <img className="shadow-2xl" src={editPicture} width={30} height={30} alt="" />
+                                                            </Link>
+                                                        </button>
+                                                    </td>
+
+                                                    <td >
+                                                        <button onClick={() => crud.deleteData(id)} ><img className="shadow-2xl" src={deletePicture} width={30} height={30} alt="" /></button>
                                                     </td>
                                                     <img src="./delete.png" alt="" />
                                                 </tr>
@@ -99,32 +123,32 @@ const Entity = () => {
                                         case "phase":
                                             return <>
                                                 <tr>
-                                                    <td key={id}>{field.generalName}</td>
+                                                    <td >{field.generalName}</td>
 
-                                                    <td key={id}>
+                                                    <td>
                                                         {
-                                                            field.learning.map((x) => {
-                                                                return <tr key={id}>{x.name}</tr>
+                                                            field.learning.map((x, id1) => {
+                                                                return <tr key={id1}>{x.name}</tr>
                                                             })
                                                         }
                                                     </td>
-                                                    <td key={id}>
+                                                    <td>
                                                         {
-                                                            field.project.map((x) => {
-                                                                return <tr key={id}>{x.name}</tr>
+                                                            field.project.map((x, id2) => {
+                                                                return <tr key={id2}>{x.name}</tr>
                                                             })
                                                         }
                                                     </td>
-                                                    <td key={id}>{field.startDate}</td>
+                                                    <td>{field.startDate}</td>
 
                                                     <td>
                                                         <button onClick={() => setIdEdit(id)} >
-                                                            <Link to={`/admin/${entityName}/edit`}><img  className="shadow-2xl" src={editPicture} width={30} height={30} alt="" /></Link>
+                                                            <Link to={`/admin/${entityName}/edit`}><img className="shadow-2xl" src={editPicture} width={30} height={30} alt="" /></Link>
                                                         </button>
                                                     </td>
 
                                                     <td>
-                                                        <button onClick={() => crud.deleteData(id)} ><img  className="shadow-2xl" src={deletePicture} width={30} height={30} alt="" /></button>
+                                                        <button onClick={() => crud.deleteData(id)} ><img className="shadow-2xl" src={deletePicture} width={30} height={30} alt="" /></button>
                                                     </td>
                                                 </tr>
                                             </>
@@ -132,17 +156,17 @@ const Entity = () => {
                                         case "roadmap":
                                             return <>
                                                 <tr>
-                                                    <td key={id}>{field.name}</td>
-                                                    <td key={id}>
+                                                    <td >{field.name}</td>
+                                                    <td>
                                                         {
-                                                            field.phase.map((x) => {
-                                                                return <tr key={id}>{x.generalName}</tr>
+                                                            field.phase.map((x, id3) => {
+                                                                return <tr key={id3}>{x.generalName}</tr>
                                                             })
                                                         }
                                                     </td>
                                                     <td>
-                                                        <button  onClick={() => setIdEdit(id)} >
-                                                            <Link to={`/admin/${entityName}/edit`}><img  className="shadow-2xl" src={editPicture} width={30} height={30} alt="" /></Link>
+                                                        <button onClick={() => setIdEdit(id)} >
+                                                            <Link to={`/admin/${entityName}/edit`}><img className="shadow-2xl" src={editPicture} width={30} height={30} alt="" /></Link>
                                                         </button>
                                                     </td>
 
